@@ -1,0 +1,40 @@
+{
+  "player": {
+    "x": 0,
+    "y": 0,
+    "width": 96,
+    "height": 256,
+    "sliceX": 3,
+    "sliceY": 4,
+    "anims": {
+      "idleDown": 1,
+      "idleUp": 4,
+      "idleLeft": 7,
+      "idleRight": 10,
+      "runDown": {
+        "from": 0,
+        "to": 2,
+        "speed": 10,
+        "loop": true
+      },
+      "runUp": {
+        "from": 3,
+        "to": 5,
+        "speed": 10,
+        "loop": true
+      },
+      "runLeft": {
+        "from": 6,
+        "to": 8,
+        "speed": 10,
+        "loop": true
+      },
+      "runRight": {
+        "from": 9,
+        "to": 11,
+        "speed": 10,
+        "loop": true
+      }
+    }
+  }
+}
