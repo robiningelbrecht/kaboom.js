@@ -14,7 +14,7 @@ export default class Game {
 
   initialize() {
     // initialize kaboom context
-    kaboom({
+    this.kaboom = kaboom({
       scale: 1,
       background: [0, 0, 0],
       clearColor: [0, 0, 0, 1],
@@ -22,7 +22,7 @@ export default class Game {
   }
 
   start() {
-    go(START_SCENE);
+    this.goToScene(START_SCENE);
   }
 
   loadSprites() {
@@ -107,19 +107,19 @@ export default class Game {
       });
 
       keyPress("right", () => {
-        this.player.runRight();
+        this.player.animateRunRight();
       });
 
       keyPress("left", () => {
-        this.player.runLeft();
+        this.player.animateRunLeft();
       });
 
       keyPress("up", () => {
-        this.player.runUp();
+        this.player.animateRunUp();
       });
 
       keyPress("down", () => {
-        this.player.runDown();
+        this.player.animateRunDown();
       });
 
       keyRelease(["left", "right", "up", "down"], () => {
@@ -137,5 +137,9 @@ export default class Game {
         fullscreen(!isFullscreen());
       });
     });
+  }
+
+  goToScene(scene) {
+    go(scene);
   }
 }

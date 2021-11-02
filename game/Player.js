@@ -33,22 +33,22 @@ export default class Player {
     this.player.move(direction, speed);
   }
 
-  runRight() {
+  animateRunRight() {
     this.play("runRight");
     this.currentDirection = DIRECTIONS.right;
   }
 
-  runLeft() {
+  animateRunLeft() {
     this.play("runLeft");
     this.currentDirection = DIRECTIONS.left;
   }
 
-  runUp() {
+  animateRunUp() {
     this.play("runUp");
     this.currentDirection = DIRECTIONS.up;
   }
 
-  runDown() {
+  animateRunDown() {
     this.play("runDown");
     this.currentDirection = DIRECTIONS.down;
   }
