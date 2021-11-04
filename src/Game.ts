@@ -1,10 +1,16 @@
-import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
-import Player from "./Player.js";
+import kaboom from "kaboom";
+import { Player } from "./Player";
 
 export const START_SCENE = "overworld";
 
-export default class Game {
-  constructor(kaboom, startLevel, levels, sprites, player) {
+export class Game {
+  private kaboom: any;
+  private startLevel: string;
+  private levels: Array<string>;
+  private sprites: Array<string>;
+  private player: Player;
+
+  constructor(kaboom: any, startLevel: string, levels: Array<string>, sprites: Array<string>, player: Player) {
     this.kaboom = kaboom
     this.startLevel = startLevel;
     this.levels = levels;
@@ -12,22 +18,22 @@ export default class Game {
     this.player = player;
   }
 
-  initialize(){
+  public initialize(): void{
     kaboom(this.kaboom);
 
     this.loadSprites();
     this.importScenes();
   }
 
-  getPlayer() {
+  public getPlayer(): Player {
     return this.player;
   }
 
-  start() {
+  public start(): void {
     this.goToScene(START_SCENE);
   }
 
-  loadSprites() {
+  private loadSprites(): void {
     // Terrain.
     loadSpriteAtlas(
       "assets/16x16-game-assets/tiles/1_terrain.png",
@@ -41,7 +47,7 @@ export default class Game {
     );
   }
 
-  importScenes() {
+  private importScenes(): void {
     scene(START_SCENE, () => {
       let map = addLevel(
         [
@@ -88,9 +94,9 @@ export default class Game {
           sprite("player", { anim: "idleDown" }),
           area(),
           solid(),
-          origin("center"),
         ])
       );
+      this.player.action();
 
       keyDown("right", () => {
         this.player.moveRight();
@@ -148,13 +154,13 @@ export default class Game {
         }
       });
 
-      keyPress("f", (c) => {
+      keyPress("f", () => {
         fullscreen(!isFullscreen());
       });
     });
   }
 
-  goToScene(scene) {
+  public goToScene(scene: string) {
     go(scene);
   }
 }

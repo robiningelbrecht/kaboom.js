@@ -1,0 +1,12 @@
+{
+  "devDependencies": {
+    "typescript": "^4.4.4"
+  },
+  "dependencies": {
+    "browserify": "^17.0.0",
+    "kaboom": "^2000.1.0"
+  },
+  "scripts": {
+    "build": "node_modules/.bin/tsc && node_modules/.bin/browserify build/index.js -o bundle.js"
+}
+}
