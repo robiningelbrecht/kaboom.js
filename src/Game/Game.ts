@@ -88,7 +88,6 @@ export class Game {
       );
 
       this.player = new Player(
-        
         add([
           pos(map.getPos(20, 12)),
           sprite("player", { anim: "idleDown" }),
