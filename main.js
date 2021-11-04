@@ -1,9 +1,10 @@
-import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
-import Game from "./game/Game.js";
+import GameBuilder from "./src/GameBuilder.js";
 
-const game = new Game();
+const game = GameBuilder.fromDefaults()
+        .withPlayer('test')
+        .withLevels()
+        .withSprites()
+        .build();
 
 game.initialize();
-game.loadSprites();
-game.importScenes();
 game.start();

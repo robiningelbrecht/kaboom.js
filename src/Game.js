@@ -4,21 +4,23 @@ import Player from "./Player.js";
 export const START_SCENE = "overworld";
 
 export default class Game {
-  constructor() {
-    this.player = null;
+  constructor(kaboom, startLevel, levels, sprites, player) {
+    this.kaboom = kaboom
+    this.startLevel = startLevel;
+    this.levels = levels;
+    this.sprites = sprites;
+    this.player = player;
+  }
+
+  initialize(){
+    kaboom(this.kaboom);
+
+    this.loadSprites();
+    this.importScenes();
   }
 
   getPlayer() {
     return this.player;
-  }
-
-  initialize() {
-    // initialize kaboom context
-    this.kaboom = kaboom({
-      scale: 1,
-      background: [0, 0, 0],
-      clearColor: [0, 0, 0, 1],
-    });
   }
 
   start() {
@@ -29,13 +31,13 @@ export default class Game {
     // Terrain.
     loadSpriteAtlas(
       "assets/16x16-game-assets/tiles/1_terrain.png",
-      "game/sprites/terrain.json"
+      "src/sprites/terrain.json"
     );
 
     //Player.
     loadSpriteAtlas(
       "assets/16x16-game-assets/tiles/14_human_sprite_base.png",
-      "game/sprites/player.json"
+      "src/sprites/player.json"
     );
   }
 
@@ -130,6 +132,19 @@ export default class Game {
           !keyIsDown("down")
         ) {
           this.player.stayIdle();
+        }else{
+          if(keyIsDown("left")){
+            this.player.animateRunLeft();
+          }
+          if(keyIsDown("right")){
+            this.player.animateRunRight();
+          }
+          if(keyIsDown("up")){
+            this.player.animateRunUp();
+          }
+          if(keyIsDown("down")){
+            this.player.animateRunDown();
+          }
         }
       });
 
