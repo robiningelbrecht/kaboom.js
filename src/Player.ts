@@ -1,5 +1,3 @@
-import kaboom from "kaboom";
-
 enum DIRECTION {
   left = "Left",
   right = "Right",
@@ -16,7 +14,6 @@ export class Player {
   constructor(player: any) {
     this.player = player;
     this.currentDirection = DIRECTION.down;
-    //this.action();
   }
 
   public moveRight(): void {
