@@ -1,11 +1,13 @@
 import { Game } from "./Game";
-import { Player } from "./Player.js";
+import { Player } from "../Player/Player.js";
+import { Sprite } from "../Sprite/Sprite";
+import kaboom from "kaboom";
 
 export class GameBuilder {
   private kaboom: any;
   private startLevel: string;
   private levels: Array<string>;
-  private sprites: Array<string>;
+  private sprites: Array<Sprite>;
   private player: Player|null;
 
   constructor() {
@@ -30,7 +32,7 @@ export class GameBuilder {
     return this;
   }
 
-  public withSprites(sprites: Array<string>): GameBuilder {
+  public withSprites(sprites: Array<Sprite>): GameBuilder {
     this.sprites = sprites;
 
     return this;

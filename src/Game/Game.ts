@@ -1,5 +1,6 @@
 import kaboom from "kaboom";
-import { Player } from "./Player";
+import { Player } from "../Player/Player";
+import { Sprite } from "../Sprite/Sprite";
 
 export const START_SCENE = "overworld";
 
@@ -7,18 +8,24 @@ export class Game {
   private kaboom: any;
   private startLevel: string;
   private levels: Array<string>;
-  private sprites: Array<string>;
+  private sprites: Array<Sprite>;
   private player: Player;
 
-  constructor(kaboom: any, startLevel: string, levels: Array<string>, sprites: Array<string>, player: Player) {
-    this.kaboom = kaboom
+  constructor(
+    kaboom: any,
+    startLevel: string,
+    levels: Array<string>,
+    sprites: Array<Sprite>,
+    player: Player
+  ) {
+    this.kaboom = kaboom;
     this.startLevel = startLevel;
     this.levels = levels;
     this.sprites = sprites;
     this.player = player;
   }
 
-  public initialize(): void{
+  public initialize(): void {
     kaboom(this.kaboom);
 
     this.loadSprites();
@@ -34,17 +41,9 @@ export class Game {
   }
 
   private loadSprites(): void {
-    // Terrain.
-    loadSpriteAtlas(
-      "assets/16x16-game-assets/tiles/1_terrain.png",
-      "src/sprites/terrain.json"
-    );
-
-    //Player.
-    loadSpriteAtlas(
-      "assets/16x16-game-assets/tiles/14_human_sprite_base.png",
-      "src/sprites/player.json"
-    );
+    this.sprites.forEach(function (sprite: Sprite) {
+      loadSpriteAtlas(sprite.getImgSource(), sprite.getJsonDefinition());
+    });
   }
 
   private importScenes(): void {
@@ -89,6 +88,7 @@ export class Game {
       );
 
       this.player = new Player(
+        
         add([
           pos(map.getPos(20, 12)),
           sprite("player", { anim: "idleDown" }),
@@ -138,17 +138,17 @@ export class Game {
           !keyIsDown("down")
         ) {
           this.player.stayIdle();
-        }else{
-          if(keyIsDown("left")){
+        } else {
+          if (keyIsDown("left")) {
             this.player.animateRunLeft();
           }
-          if(keyIsDown("right")){
+          if (keyIsDown("right")) {
             this.player.animateRunRight();
           }
-          if(keyIsDown("up")){
+          if (keyIsDown("up")) {
             this.player.animateRunUp();
           }
-          if(keyIsDown("down")){
+          if (keyIsDown("down")) {
             this.player.animateRunDown();
           }
         }

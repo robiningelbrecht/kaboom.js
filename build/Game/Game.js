@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Game = exports.START_SCENE = void 0;
 const kaboom_1 = require("kaboom");
-const Player_1 = require("./Player");
+const Player_1 = require("../Player/Player");
 exports.START_SCENE = "overworld";
 class Game {
     constructor(kaboom, startLevel, levels, sprites, player) {
@@ -25,7 +25,6 @@ class Game {
     }
     loadSprites() {
         this.sprites.forEach(function (sprite) {
-            console.log(sprite.getImgSource(), sprite.getJsonDefinition());
             loadSpriteAtlas(sprite.getImgSource(), sprite.getJsonDefinition());
         });
     }

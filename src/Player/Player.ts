@@ -1,3 +1,5 @@
+import { Sprite } from "../Sprite/Sprite";
+
 enum DIRECTION {
   left = "Left",
   right = "Right",
@@ -54,6 +56,13 @@ export class Player {
 
   public stayIdle(): void {
     this.play("idle" + this.currentDirection);
+  }
+
+  public getSprite(): Sprite {
+    return new Sprite(
+      "assets/16x16-game-assets/tiles/14_human_sprite_base.png",
+      "src/sprites/player.json"
+    );
   }
 
   private play(animation: string): void {
