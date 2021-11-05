@@ -16,4 +16,4 @@ const game = GameBuilder.fromDefaults()
   .build();
 
 game.initialize();
-game.start();
+game.render();

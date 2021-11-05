@@ -15,17 +15,15 @@ class Game {
         (0, kaboom_1.default)(this.kaboom);
         this.loadSprites();
     }
-    start() {
-        this.loadLevel(this.startLevel);
+    render() {
+        this.renderLevel(this.startLevel);
     }
     loadSprites() {
         this.sprites.forEach((sprite) => loadSpriteAtlas(sprite.getImgSource(), sprite.getJsonDefinition()));
     }
-    loadLevel(level) {
+    renderLevel(level) {
         scene(exports.SCENE, () => {
-            level
-                .getLayers()
-                .forEach((layer) => addLevel(layer.getMap(), layer.getOptions()));
+            level.render();
             this.player = new Player_1.Player(add([
                 pos(level.getInitialPlayerPosition()),
                 sprite("player", { anim: level.getInitialPlayerAnimation() }),
@@ -83,7 +81,7 @@ class Game {
                 fullscreen(!isFullscreen());
             });
             keyPress("space", () => {
-                this.loadLevel(this.levels[1]);
+                this.renderLevel(this.levels[1]);
             });
         });
         go(exports.SCENE);

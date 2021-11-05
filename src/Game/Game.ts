@@ -31,8 +31,8 @@ export class Game {
     this.loadSprites();
   }
 
-  public start(): void {
-    this.loadLevel(this.startLevel);
+  public render(): void {
+    this.renderLevel(this.startLevel);
   }
 
   private loadSprites(): void {
@@ -41,13 +41,9 @@ export class Game {
     );
   }
 
-  private loadLevel(level: Level): void {
+  private renderLevel(level: Level): void {
     scene(SCENE, () => {
-      level
-        .getLayers()
-        .forEach((layer: Layer) =>
-          addLevel(layer.getMap(), layer.getOptions())
-        );
+      level.render();
 
       this.player = new Player(
         add([
@@ -120,7 +116,7 @@ export class Game {
       });
 
       keyPress("space", () => {
-        this.loadLevel(this.levels[1]);
+        this.renderLevel(this.levels[1]);
       });
     });
 

@@ -5,7 +5,7 @@ const Game_1 = require("./Game");
 class GameBuilder {
     constructor() {
         this.kaboom = {
-            scale: 5,
+            scale: 1,
             background: [0, 0, 0]
         };
         this.startLevel = null;

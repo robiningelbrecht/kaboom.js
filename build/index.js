@@ -16,5 +16,5 @@ const game = GameBuilder_1.GameBuilder.fromDefaults()
     .withSprites(SpriteCollection_1.SpriteCollection.get())
     .build();
 game.initialize();
-game.start();
+game.render();
 //# sourceMappingURL=index.js.map

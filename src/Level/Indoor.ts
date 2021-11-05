@@ -3,10 +3,16 @@ import { IDLE_ANIMATON } from "../Player/Player";
 import { Layer } from "./Layer";
 import { Level } from "./Level";
 
-export class Indoor implements Level {
-  constructor() {}
+export class Indoor extends Level {
+  public getInitialPlayerPosition(): Vec2 {
+    return vec2(100, 100);
+  }
 
-  getLayers(): Layer[] {
+  public getInitialPlayerAnimation(): IDLE_ANIMATON {
+    return IDLE_ANIMATON.up;
+  }
+
+  protected getLayers(): Layer[] {
     return [
       new Layer(
         [
@@ -47,13 +53,5 @@ export class Indoor implements Level {
         }
       ),
     ];
-  }
-
-  getInitialPlayerPosition(): Vec2 {
-    return vec2(100, 100);
-  }
-
-  getInitialPlayerAnimation(): IDLE_ANIMATON {
-    return IDLE_ANIMATON.up;
   }
 }
