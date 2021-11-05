@@ -1,33 +1,41 @@
 import { Game } from "./Game";
-import { Player } from "../Player/Player.js";
 import { Sprite } from "../Sprite/Sprite";
-import kaboom from "kaboom";
+import { Level } from "../Level/Level";
+import { KaboomOpt } from "kaboom";
 
 export class GameBuilder {
-  private kaboom: any;
-  private startLevel: string;
-  private levels: Array<string>;
+  private kaboom: KaboomOpt;
+  private startLevel: Level | null;
+  private levels: Array<Level>;
   private sprites: Array<Sprite>;
-  private player: Player|null;
 
   constructor() {
     this.kaboom = {
       scale: 5,
-      background: [0, 0, 0],
-      clearColor: [0, 0, 0, 1],
+      background: [0, 0, 0]
     };
-    this.startLevel = "test";
+    this.startLevel = null;
     this.levels = [];
     this.sprites = [];
-    this.player = null;
   }
 
   public static fromDefaults(): GameBuilder {
     return new GameBuilder();
   }
 
-  public withLevels(levels: Array<string>): GameBuilder {
+  public withKaboom(kaboomOpt: KaboomOpt): GameBuilder {
+    this.kaboom = kaboomOpt;
+    return this;
+  }
+
+  public withLevels(levels: Array<Level>): GameBuilder {
     this.levels = levels;
+
+    return this;
+  }
+
+  public withStartLevel(level: Level): GameBuilder {
+    this.startLevel = level;
 
     return this;
   }
@@ -38,16 +46,10 @@ export class GameBuilder {
     return this;
   }
 
-  public withPlayer(player: Player): GameBuilder {
-    this.player = player;
-
-    return this;
-  }
-
   public build(): Game {
-    if(!this.player){
-      throw new Error('Cannot build game without a player');
+    if (!this.startLevel) {
+      throw Error("Cannot build game without start level");
     }
-    return new Game(this.kaboom, this.startLevel, this.levels, this.sprites, this.player);
+    return new Game(this.kaboom, this.startLevel, this.levels, this.sprites);
   }
 }

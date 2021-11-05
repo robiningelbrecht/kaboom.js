@@ -1,4 +1,10 @@
 {
+  "grass_light": {
+    "x": 16,
+    "y": 320,
+    "width": 64,
+    "height": 32
+  },
   "grass_dark": {
     "x": 16,
     "y": 32,

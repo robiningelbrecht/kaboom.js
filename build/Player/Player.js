@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Player = void 0;
-const Sprite_1 = require("../Sprite/Sprite");
 var DIRECTION;
 (function (DIRECTION) {
     DIRECTION["left"] = "Left";
@@ -45,9 +44,6 @@ class Player {
     }
     stayIdle() {
         this.play("idle" + this.currentDirection);
-    }
-    getSprite() {
-        return new Sprite_1.Sprite("assets/16x16-game-assets/tiles/14_human_sprite_base.png", "src/sprites/player.json");
     }
     play(animation) {
         this.player.play(animation);

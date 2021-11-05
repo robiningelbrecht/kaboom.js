@@ -1,17 +1,19 @@
 import { GameBuilder } from "./Game/GameBuilder";
 import { Player } from "./Player/Player";
-import { Sprite } from "./Sprite/Sprite";
+import { Outdoor } from "./Level/Outdoor";
+import { Indoor } from "./Level/Indoor";
+import { SpriteCollection } from "./Sprite/SpriteCollection";
 
+const startLevel = new Outdoor();
+const levels = [startLevel, new Indoor()];
 const game = GameBuilder.fromDefaults()
-  .withPlayer(new Player({}))
-  .withLevels([])
-  .withSprites([
-    Player.getSprite(),
-    new Sprite(
-      "assets/16x16-game-assets/tiles/1_terrain.png",
-      "src/sprites/terrain.json"
-    ),
-  ])
+  .withKaboom({
+    scale: 2,
+    background: [0, 0, 0],
+  })
+  .withLevels(levels)
+  .withStartLevel(startLevel)
+  .withSprites(SpriteCollection.get())
   .build();
 
 game.initialize();

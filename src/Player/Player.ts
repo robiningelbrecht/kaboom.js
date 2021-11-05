@@ -58,13 +58,6 @@ export class Player {
     this.play("idle" + this.currentDirection);
   }
 
-  public getSprite(): Sprite {
-    return new Sprite(
-      "assets/16x16-game-assets/tiles/14_human_sprite_base.png",
-      "src/sprites/player.json"
-    );
-  }
-
   private play(animation: string): void {
     this.player.play(animation);
   }

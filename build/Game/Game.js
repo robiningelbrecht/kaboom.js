@@ -1,70 +1,32 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Game = exports.START_SCENE = void 0;
+exports.Game = exports.SCENE = void 0;
 const kaboom_1 = require("kaboom");
 const Player_1 = require("../Player/Player");
-exports.START_SCENE = "overworld";
+exports.SCENE = "main";
 class Game {
-    constructor(kaboom, startLevel, levels, sprites, player) {
+    constructor(kaboom, startLevel, levels, sprites) {
         this.kaboom = kaboom;
         this.startLevel = startLevel;
         this.levels = levels;
         this.sprites = sprites;
-        this.player = player;
     }
     initialize() {
         (0, kaboom_1.default)(this.kaboom);
         this.loadSprites();
-        this.importScenes();
-    }
-    getPlayer() {
-        return this.player;
     }
     start() {
-        this.goToScene(exports.START_SCENE);
+        this.loadLevel(this.startLevel);
     }
     loadSprites() {
-        this.sprites.forEach(function (sprite) {
-            loadSpriteAtlas(sprite.getImgSource(), sprite.getJsonDefinition());
-        });
+        this.sprites.forEach((sprite) => loadSpriteAtlas(sprite.getImgSource(), sprite.getJsonDefinition()));
     }
-    importScenes() {
-        scene(exports.START_SCENE, () => {
-            let map = addLevel([
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-            ], {
-                width: 64,
-                height: 32,
-                " ": () => [sprite("grass_dark")],
-            });
+    loadLevel(level) {
+        scene(exports.SCENE, () => {
+            level
+                .getLayers()
+                .forEach((layer) => addLevel(layer.getMap(), layer.getOptions()));
+            let map = addLevel(level.getMap(), level.getOptions());
             this.player = new Player_1.Player(add([
                 pos(map.getPos(20, 12)),
                 sprite("player", { anim: "idleDown" }),
@@ -121,10 +83,11 @@ class Game {
             keyPress("f", () => {
                 fullscreen(!isFullscreen());
             });
+            keyPress("space", () => {
+                this.loadLevel(this.levels[1]);
+            });
         });
-    }
-    goToScene(scene) {
-        go(scene);
+        go(exports.SCENE);
     }
 }
 exports.Game = Game;

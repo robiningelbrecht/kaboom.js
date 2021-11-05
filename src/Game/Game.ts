@@ -1,91 +1,55 @@
-import kaboom from "kaboom";
+import kaboom, { KaboomOpt } from "kaboom";
+import { Layer } from "../Level/Layer";
+import { Level } from "../Level/Level";
 import { Player } from "../Player/Player";
 import { Sprite } from "../Sprite/Sprite";
 
-export const START_SCENE = "overworld";
+export const SCENE = "main";
 
 export class Game {
-  private kaboom: any;
-  private startLevel: string;
-  private levels: Array<string>;
+  private kaboom: KaboomOpt;
+  private startLevel: Level;
+  private levels: Array<Level>;
   private sprites: Array<Sprite>;
-  private player: Player;
+  private player!: Player;
 
   constructor(
-    kaboom: any,
-    startLevel: string,
-    levels: Array<string>,
-    sprites: Array<Sprite>,
-    player: Player
+    kaboom: KaboomOpt,
+    startLevel: Level,
+    levels: Array<Level>,
+    sprites: Array<Sprite>
   ) {
     this.kaboom = kaboom;
     this.startLevel = startLevel;
     this.levels = levels;
     this.sprites = sprites;
-    this.player = player;
   }
 
   public initialize(): void {
     kaboom(this.kaboom);
 
     this.loadSprites();
-    this.importScenes();
-  }
-
-  public getPlayer(): Player {
-    return this.player;
   }
 
   public start(): void {
-    this.goToScene(START_SCENE);
+    this.loadLevel(this.startLevel);
   }
 
   private loadSprites(): void {
-    this.sprites.forEach(function (sprite: Sprite) {
-      loadSpriteAtlas(sprite.getImgSource(), sprite.getJsonDefinition());
-    });
+    this.sprites.forEach((sprite: Sprite) =>
+      loadSpriteAtlas(sprite.getImgSource(), sprite.getJsonDefinition())
+    );
   }
 
-  private importScenes(): void {
-    scene(START_SCENE, () => {
-      let map = addLevel(
-        [
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-        ],
-        {
-          width: 64,
-          height: 32,
-          " ": () => [sprite("grass_dark")],
-        }
-      );
+  private loadLevel(level: Level): void {
+    scene(SCENE, () => {
+      level
+        .getLayers()
+        .forEach((layer: Layer) =>
+          addLevel(layer.getMap(), layer.getOptions())
+        );
+
+      let map = addLevel(level.getMap(), level.getOptions());
 
       this.player = new Player(
         add([
@@ -156,10 +120,12 @@ export class Game {
       keyPress("f", () => {
         fullscreen(!isFullscreen());
       });
-    });
-  }
 
-  public goToScene(scene: string) {
-    go(scene);
+      keyPress("space", () => {
+        this.loadLevel(this.levels[1]);
+      });
+    });
+
+    go(SCENE);
   }
 }
