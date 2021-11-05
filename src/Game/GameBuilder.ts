@@ -1,6 +1,7 @@
 import { Game } from "./Game";
 import { Sprite } from "../Sprite/Sprite";
 import { Level } from "../Level/Level";
+import { Sound } from "../Sound/Sound";
 import { KaboomOpt } from "kaboom";
 
 export class GameBuilder {
@@ -8,15 +9,17 @@ export class GameBuilder {
   private startLevel: Level | null;
   private levels: Array<Level>;
   private sprites: Array<Sprite>;
+  private sound: Array<Sound>;
 
   constructor() {
     this.kaboom = {
       scale: 1,
-      background: [0, 0, 0]
+      background: [0, 0, 0],
     };
     this.startLevel = null;
     this.levels = [];
     this.sprites = [];
+    this.sound = [];
   }
 
   public static fromDefaults(): GameBuilder {
@@ -46,10 +49,19 @@ export class GameBuilder {
     return this;
   }
 
+  public withSound(sound: Array<Sound>): GameBuilder {
+    this.sound = sound;
+
+    return this;
+  }
+
   public build(): Game {
-    if (!this.startLevel) {
+    if (this.startLevel === null) {
       throw Error("Cannot build game without start level");
     }
-    return new Game(this.kaboom, this.startLevel, this.levels, this.sprites);
+    if (this.levels.length < 1) {
+      throw Error("Cannot build game without levels");
+    }
+    return new Game(this.kaboom, this.startLevel, this.levels, this.sprites, this.sound);
   }
 }

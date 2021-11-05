@@ -1,5 +1,6 @@
 import kaboom, { KaboomOpt } from "kaboom";
 import { Level } from "../Level/Level";
+import { Sound } from "../Sound/Sound";
 import { Player } from "../Player/Player";
 import { Sprite } from "../Sprite/Sprite";
 
@@ -11,33 +12,47 @@ export class Game {
   private levels: Array<Level>;
   private sprites: Array<Sprite>;
   private player!: Player;
+  private sound: Array<Sound>;
 
   constructor(
     kaboom: KaboomOpt,
     startLevel: Level,
     levels: Array<Level>,
-    sprites: Array<Sprite>
+    sprites: Array<Sprite>,
+    sound: Array<Sound>
   ) {
     this.kaboom = kaboom;
     this.startLevel = startLevel;
     this.levels = levels;
     this.sprites = sprites;
+    this.sound = sound;
   }
 
   public initialize(): void {
     kaboom(this.kaboom);
 
     this.loadSprites();
-  }
-
-  public render(): void {
-    this.renderLevel(this.startLevel);
+    this.loadSound();
   }
 
   private loadSprites(): void {
     this.sprites.forEach((sprite: Sprite) =>
       loadSpriteAtlas(sprite.getImgSource(), sprite.getJsonDefinition())
     );
+  }
+
+  private loadSound(): void {
+    this.sound.forEach((sound: Sound) =>
+      loadSound(sound.getName(), sound.getLocation())
+    );
+  }
+
+  public render(): void {
+    play("background", {
+      volume: 0.3,
+      loop: true,
+    });
+    this.renderLevel(this.startLevel);
   }
 
   private renderLevel(level: Level): void {

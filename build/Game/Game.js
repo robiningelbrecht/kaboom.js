@@ -5,21 +5,30 @@ const kaboom_1 = require("kaboom");
 const Player_1 = require("../Player/Player");
 exports.SCENE = "main";
 class Game {
-    constructor(kaboom, startLevel, levels, sprites) {
+    constructor(kaboom, startLevel, levels, sprites, sound) {
         this.kaboom = kaboom;
         this.startLevel = startLevel;
         this.levels = levels;
         this.sprites = sprites;
+        this.sound = sound;
     }
     initialize() {
         (0, kaboom_1.default)(this.kaboom);
         this.loadSprites();
-    }
-    render() {
-        this.renderLevel(this.startLevel);
+        this.loadSound();
     }
     loadSprites() {
         this.sprites.forEach((sprite) => loadSpriteAtlas(sprite.getImgSource(), sprite.getJsonDefinition()));
+    }
+    loadSound() {
+        this.sound.forEach((sound) => loadSound(sound.getName(), sound.getLocation()));
+    }
+    render() {
+        play("background", {
+            volume: 0.3,
+            loop: true,
+        });
+        this.renderLevel(this.startLevel);
     }
     renderLevel(level) {
         scene(exports.SCENE, () => {
