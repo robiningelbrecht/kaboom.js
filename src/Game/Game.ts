@@ -49,11 +49,9 @@ export class Game {
           addLevel(layer.getMap(), layer.getOptions())
         );
 
-      let map = addLevel(level.getMap(), level.getOptions());
-
       this.player = new Player(
         add([
-          pos(map.getPos(20, 12)),
+          pos(level.getPlayerInitialPosition()),
           sprite("player", { anim: "idleDown" }),
           area(),
           solid(),

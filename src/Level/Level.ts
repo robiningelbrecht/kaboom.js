@@ -1,8 +1,7 @@
-import { LevelOpt } from "kaboom";
+import { LevelOpt, Vec2 } from "kaboom";
 import { Layer } from "./Layer";
 
 export interface Level{
-    getMap(): Array<string>;
-    getOptions(): LevelOpt;
-    getLayers(): Array<Layer>
+    getLayers(): Array<Layer>;
+    getPlayerInitialPosition(): Vec2;
 }
