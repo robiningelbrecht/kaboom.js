@@ -1,5 +1,4 @@
 import kaboom, { KaboomOpt } from "kaboom";
-import { Layer } from "../Level/Layer";
 import { Level } from "../Level/Level";
 import { Player } from "../Player/Player";
 import { Sprite } from "../Sprite/Sprite";
