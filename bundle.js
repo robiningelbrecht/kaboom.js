@@ -26,7 +26,7 @@ class Game {
     }
     render() {
         play("background", {
-            volume: 0.3,
+            volume: 0.2,
             loop: true,
         });
         this.renderLevel(this.startLevel);
