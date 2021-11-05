@@ -1,10 +1,16 @@
-import { Sprite } from "../Sprite/Sprite";
-
 enum DIRECTION {
   left = "Left",
   right = "Right",
   up = "Up",
   down = "Down",
+}
+
+export enum IDLE_ANIMATON {
+  left = "idleLeft",
+  right = "idleRight",
+  up = "idleUp",
+  down = "idleDown",
+  prefix = "idle"
 }
 
 const SPEED = 120;
@@ -55,7 +61,7 @@ export class Player {
   }
 
   public stayIdle(): void {
-    this.play("idle" + this.currentDirection);
+    this.play(IDLE_ANIMATON.prefix + this.currentDirection);
   }
 
   private play(animation: string): void {

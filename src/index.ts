@@ -1,5 +1,4 @@
 import { GameBuilder } from "./Game/GameBuilder";
-import { Player } from "./Player/Player";
 import { Outdoor } from "./Level/Outdoor";
 import { Indoor } from "./Level/Indoor";
 import { SpriteCollection } from "./Sprite/SpriteCollection";

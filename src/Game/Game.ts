@@ -51,8 +51,8 @@ export class Game {
 
       this.player = new Player(
         add([
-          pos(level.getPlayerInitialPosition()),
-          sprite("player", { anim: "idleDown" }),
+          pos(level.getInitialPlayerPosition()),
+          sprite("player", { anim: level.getInitialPlayerAnimation() }),
           area(),
           solid(),
         ])

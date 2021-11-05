@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Indoor = void 0;
+const Player_1 = require("../Player/Player");
 const Layer_1 = require("./Layer");
 class Indoor {
     constructor() { }
@@ -43,8 +44,11 @@ class Indoor {
             }),
         ];
     }
-    getPlayerInitialPosition() {
+    getInitialPlayerPosition() {
         return vec2(100, 100);
+    }
+    getInitialPlayerAnimation() {
+        return Player_1.IDLE_ANIMATON.up;
     }
 }
 exports.Indoor = Indoor;

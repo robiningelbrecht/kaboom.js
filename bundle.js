@@ -28,8 +28,8 @@ class Game {
                 .getLayers()
                 .forEach((layer) => addLevel(layer.getMap(), layer.getOptions()));
             this.player = new Player_1.Player(add([
-                pos(level.getPlayerInitialPosition()),
-                sprite("player", { anim: "idleDown" }),
+                pos(level.getInitialPlayerPosition()),
+                sprite("player", { anim: level.getInitialPlayerAnimation() }),
                 area(),
                 solid(),
             ]));
@@ -139,6 +139,7 @@ exports.GameBuilder = GameBuilder;
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Indoor = void 0;
+const Player_1 = require("../Player/Player");
 const Layer_1 = require("./Layer");
 class Indoor {
     constructor() { }
@@ -181,13 +182,16 @@ class Indoor {
             }),
         ];
     }
-    getPlayerInitialPosition() {
+    getInitialPlayerPosition() {
         return vec2(100, 100);
+    }
+    getInitialPlayerAnimation() {
+        return Player_1.IDLE_ANIMATON.up;
     }
 }
 exports.Indoor = Indoor;
 
-},{"./Layer":4}],4:[function(require,module,exports){
+},{"../Player/Player":6,"./Layer":4}],4:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Layer = void 0;
@@ -209,6 +213,7 @@ exports.Layer = Layer;
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Outdoor = void 0;
+const Player_1 = require("../Player/Player");
 const Layer_1 = require("./Layer");
 class Outdoor {
     constructor() { }
@@ -252,16 +257,19 @@ class Outdoor {
             }),
         ];
     }
-    getPlayerInitialPosition() {
+    getInitialPlayerPosition() {
         return vec2(100, 100);
+    }
+    getInitialPlayerAnimation() {
+        return Player_1.IDLE_ANIMATON.down;
     }
 }
 exports.Outdoor = Outdoor;
 
-},{"./Layer":4}],6:[function(require,module,exports){
+},{"../Player/Player":6,"./Layer":4}],6:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Player = void 0;
+exports.Player = exports.IDLE_ANIMATON = void 0;
 var DIRECTION;
 (function (DIRECTION) {
     DIRECTION["left"] = "Left";
@@ -269,6 +277,14 @@ var DIRECTION;
     DIRECTION["up"] = "Up";
     DIRECTION["down"] = "Down";
 })(DIRECTION || (DIRECTION = {}));
+var IDLE_ANIMATON;
+(function (IDLE_ANIMATON) {
+    IDLE_ANIMATON["left"] = "idleLeft";
+    IDLE_ANIMATON["right"] = "idleRight";
+    IDLE_ANIMATON["up"] = "idleUp";
+    IDLE_ANIMATON["down"] = "idleDown";
+    IDLE_ANIMATON["prefix"] = "idle";
+})(IDLE_ANIMATON = exports.IDLE_ANIMATON || (exports.IDLE_ANIMATON = {}));
 const SPEED = 120;
 class Player {
     constructor(player) {
@@ -304,7 +320,7 @@ class Player {
         this.currentDirection = DIRECTION.down;
     }
     stayIdle() {
-        this.play("idle" + this.currentDirection);
+        this.play(IDLE_ANIMATON.prefix + this.currentDirection);
     }
     play(animation) {
         this.player.play(animation);

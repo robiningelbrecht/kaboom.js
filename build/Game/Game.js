@@ -27,8 +27,8 @@ class Game {
                 .getLayers()
                 .forEach((layer) => addLevel(layer.getMap(), layer.getOptions()));
             this.player = new Player_1.Player(add([
-                pos(level.getPlayerInitialPosition()),
-                sprite("player", { anim: "idleDown" }),
+                pos(level.getInitialPlayerPosition()),
+                sprite("player", { anim: level.getInitialPlayerAnimation() }),
                 area(),
                 solid(),
             ]));

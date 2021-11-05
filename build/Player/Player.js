@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Player = void 0;
+exports.Player = exports.IDLE_ANIMATON = void 0;
 var DIRECTION;
 (function (DIRECTION) {
     DIRECTION["left"] = "Left";
@@ -8,6 +8,14 @@ var DIRECTION;
     DIRECTION["up"] = "Up";
     DIRECTION["down"] = "Down";
 })(DIRECTION || (DIRECTION = {}));
+var IDLE_ANIMATON;
+(function (IDLE_ANIMATON) {
+    IDLE_ANIMATON["left"] = "idleLeft";
+    IDLE_ANIMATON["right"] = "idleRight";
+    IDLE_ANIMATON["up"] = "idleUp";
+    IDLE_ANIMATON["down"] = "idleDown";
+    IDLE_ANIMATON["prefix"] = "idle";
+})(IDLE_ANIMATON = exports.IDLE_ANIMATON || (exports.IDLE_ANIMATON = {}));
 const SPEED = 120;
 class Player {
     constructor(player) {
@@ -43,7 +51,7 @@ class Player {
         this.currentDirection = DIRECTION.down;
     }
     stayIdle() {
-        this.play("idle" + this.currentDirection);
+        this.play(IDLE_ANIMATON.prefix + this.currentDirection);
     }
     play(animation) {
         this.player.play(animation);

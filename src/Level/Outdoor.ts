@@ -1,5 +1,5 @@
-import { LevelOpt, Vec2 } from "kaboom";
-import { Sprite } from "../Sprite/Sprite";
+import { Vec2 } from "kaboom";
+import { IDLE_ANIMATON } from "../Player/Player";
 import { Layer } from "./Layer";
 import { Level } from "./Level";
 
@@ -50,7 +50,11 @@ export class Outdoor implements Level {
     ];
   }
 
-  getPlayerInitialPosition(): Vec2 {
+  getInitialPlayerPosition(): Vec2 {
     return vec2(100, 100);
+  }
+
+  getInitialPlayerAnimation(): IDLE_ANIMATON {
+    return IDLE_ANIMATON.down;
   }
 }
