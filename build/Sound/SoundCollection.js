@@ -6,6 +6,7 @@ class SoundCollection {
     static get() {
         return [
             new Sound_1.Sound("background", "assets/audio/background.mp3"),
+            new Sound_1.Sound("footsteps", "assets/audio/footsteps.ogg"),
         ];
     }
 }

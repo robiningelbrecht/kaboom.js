@@ -21,6 +21,12 @@ class Player {
     constructor(player) {
         this.player = player;
         this.currentDirection = DIRECTION.down;
+        this.footsteps = play("footsteps", {
+            volume: 0.4,
+            loop: true,
+            speed: 0.8
+        });
+        this.footsteps.pause();
     }
     moveRight() {
         this.move(SPEED, 0);
@@ -51,12 +57,22 @@ class Player {
         this.currentDirection = DIRECTION.down;
     }
     stayIdle() {
+        this.pauseFootstepSound();
         this.play(IDLE_ANIMATON.prefix + this.currentDirection);
+    }
+    pauseFootstepSound() {
+        this.footsteps.pause();
+    }
+    playFootstepSound() {
+        if (this.footsteps.isPaused()) {
+            this.footsteps.play();
+        }
     }
     play(animation) {
         this.player.play(animation);
     }
     move(direction, speed) {
+        this.playFootstepSound();
         this.player.move(direction, speed);
     }
     action() {

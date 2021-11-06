@@ -26,7 +26,7 @@ class Game {
     }
     render() {
         play("background", {
-            volume: 0.2,
+            volume: 0.1,
             loop: true,
         });
         this.renderLevel(this.startLevel);
@@ -91,6 +91,7 @@ class Game {
                 fullscreen(!isFullscreen());
             });
             keyPress("space", () => {
+                this.player.pauseFootstepSound();
                 this.renderLevel(this.levels[1]);
             });
         });
@@ -316,6 +317,12 @@ class Player {
     constructor(player) {
         this.player = player;
         this.currentDirection = DIRECTION.down;
+        this.footsteps = play("footsteps", {
+            volume: 0.4,
+            loop: true,
+            speed: 0.8
+        });
+        this.footsteps.pause();
     }
     moveRight() {
         this.move(SPEED, 0);
@@ -346,12 +353,22 @@ class Player {
         this.currentDirection = DIRECTION.down;
     }
     stayIdle() {
+        this.pauseFootstepSound();
         this.play(IDLE_ANIMATON.prefix + this.currentDirection);
+    }
+    pauseFootstepSound() {
+        this.footsteps.pause();
+    }
+    playFootstepSound() {
+        if (this.footsteps.isPaused()) {
+            this.footsteps.play();
+        }
     }
     play(animation) {
         this.player.play(animation);
     }
     move(direction, speed) {
+        this.playFootstepSound();
         this.player.move(direction, speed);
     }
     action() {
@@ -389,6 +406,7 @@ class SoundCollection {
     static get() {
         return [
             new Sound_1.Sound("background", "assets/audio/background.mp3"),
+            new Sound_1.Sound("footsteps", "assets/audio/footsteps.ogg"),
         ];
     }
 }

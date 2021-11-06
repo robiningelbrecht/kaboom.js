@@ -1,3 +1,5 @@
+import { AudioPlay } from "kaboom";
+
 enum DIRECTION {
   left = "Left",
   right = "Right",
@@ -18,10 +20,17 @@ const SPEED = 120;
 export class Player {
   private player: any;
   private currentDirection: DIRECTION;
+  private footsteps: AudioPlay;
 
   constructor(player: any) {
     this.player = player;
     this.currentDirection = DIRECTION.down;
+    this.footsteps = play("footsteps", {
+      volume: 0.4,
+      loop: true,
+      speed: 0.8
+    });
+    this.footsteps.pause();
   }
 
   public moveRight(): void {
@@ -61,7 +70,18 @@ export class Player {
   }
 
   public stayIdle(): void {
+    this.pauseFootstepSound();
     this.play(IDLE_ANIMATON.prefix + this.currentDirection);
+  }
+
+  public pauseFootstepSound(): void{
+    this.footsteps.pause();
+  }
+
+  public playFootstepSound(): void{
+    if(this.footsteps.isPaused()){
+      this.footsteps.play();
+    }
   }
 
   private play(animation: string): void {
@@ -69,6 +89,7 @@ export class Player {
   }
 
   private move(direction: number, speed: number): void {
+    this.playFootstepSound();
     this.player.move(direction, speed);
   }
 

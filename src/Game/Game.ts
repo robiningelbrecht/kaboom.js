@@ -49,7 +49,7 @@ export class Game {
 
   public render(): void {
     play("background", {
-      volume: 0.2,
+      volume: 0.1,
       loop: true,
     });
     this.renderLevel(this.startLevel);
@@ -130,6 +130,7 @@ export class Game {
       });
 
       keyPress("space", () => {
+        this.player.pauseFootstepSound();
         this.renderLevel(this.levels[1]);
       });
     });

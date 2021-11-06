@@ -8,6 +8,11 @@ export class SoundCollection {
         "background",
         "assets/audio/background.mp3"
       ),
+      // Footsteps.
+      new Sound(
+        "footsteps",
+        "assets/audio/footsteps.ogg"
+      ),
     ];
   }
 }

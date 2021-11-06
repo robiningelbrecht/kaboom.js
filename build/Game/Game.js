@@ -25,7 +25,7 @@ class Game {
     }
     render() {
         play("background", {
-            volume: 0.2,
+            volume: 0.1,
             loop: true,
         });
         this.renderLevel(this.startLevel);
@@ -90,6 +90,7 @@ class Game {
                 fullscreen(!isFullscreen());
             });
             keyPress("space", () => {
+                this.player.pauseFootstepSound();
                 this.renderLevel(this.levels[1]);
             });
         });
