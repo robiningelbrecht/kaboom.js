@@ -38,10 +38,10 @@ class GameBuilder {
     }
     build() {
         if (this.startLevel === null) {
-            throw Error("Cannot build game without start level");
+            throw Error('Cannot build game without start level');
         }
         if (this.levels.length < 1) {
-            throw Error("Cannot build game without levels");
+            throw Error('Cannot build game without levels');
         }
         return new Game_1.Game(this.kaboom, this.startLevel, this.levels, this.sprites, this.sound);
     }

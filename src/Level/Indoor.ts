@@ -1,7 +1,7 @@
-import { Vec2 } from "kaboom";
-import { IDLE_ANIMATON } from "../Player/Player";
-import { Layer } from "./Layer";
-import { Level } from "./Level";
+import { Vec2 } from 'kaboom';
+import { IDLE_ANIMATON } from '../Player/Player';
+import { Layer } from './Layer';
+import { Level } from './Level';
 
 export class Indoor extends Level {
   public getInitialPlayerPosition(): Vec2 {
@@ -16,40 +16,40 @@ export class Indoor extends Level {
     return [
       new Layer(
         [
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
         ],
         {
           width: 64,
           height: 32,
-          " ": () => [sprite("grass_light")],
+          ' ': () => [sprite('grass_light')],
         }
       ),
     ];

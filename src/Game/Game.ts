@@ -1,11 +1,11 @@
-import kaboom, { KaboomOpt } from "kaboom";
-import { Level } from "../Level/Level";
-import { AudioPlayer } from "../Sound/AudioPlayer";
-import { Sound } from "../Sound/Sound";
-import { Player } from "../Player/Player";
-import { Sprite } from "../Sprite/Sprite";
+import kaboom, { KaboomOpt } from 'kaboom';
+import { Level } from '../Level/Level';
+import { AudioPlayer } from '../Sound/AudioPlayer';
+import { Sound } from '../Sound/Sound';
+import { Player } from '../Player/Player';
+import { Sprite } from '../Sprite/Sprite';
 
-export const SCENE = "main";
+export const SCENE = 'main';
 
 export class Game {
   private kaboom: KaboomOpt;
@@ -49,7 +49,7 @@ export class Game {
   }
 
   public render(): void {
-    const backgroundMusic = new AudioPlayer(play("background", {
+    const backgroundMusic = new AudioPlayer(play('background', {
       volume: 0.1,
       loop: true,
     }));
@@ -65,74 +65,74 @@ export class Game {
       this.player = new Player(
         add([
           pos(level.getInitialPlayerPosition()),
-          sprite("player", { anim: level.getInitialPlayerAnimation() }),
+          sprite('player', { anim: level.getInitialPlayerAnimation() }),
           area(),
           solid(),
         ])
       );
       this.player.action();
 
-      keyDown("right", () => {
+      keyDown('right', () => {
         this.player.moveRight();
       });
 
-      keyDown("left", () => {
+      keyDown('left', () => {
         this.player.moveLeft();
       });
 
-      keyDown("up", () => {
+      keyDown('up', () => {
         this.player.moveUp();
       });
 
-      keyDown("down", () => {
+      keyDown('down', () => {
         this.player.moveDown();
       });
 
-      keyPress("right", () => {
+      keyPress('right', () => {
         this.player.animateRunRight();
       });
 
-      keyPress("left", () => {
+      keyPress('left', () => {
         this.player.animateRunLeft();
       });
 
-      keyPress("up", () => {
+      keyPress('up', () => {
         this.player.animateRunUp();
       });
 
-      keyPress("down", () => {
+      keyPress('down', () => {
         this.player.animateRunDown();
       });
 
-      keyRelease(["left", "right", "up", "down"], () => {
+      keyRelease(['left', 'right', 'up', 'down'], () => {
         if (
-          !keyIsDown("left") &&
-          !keyIsDown("right") &&
-          !keyIsDown("up") &&
-          !keyIsDown("down")
+          !keyIsDown('left') &&
+          !keyIsDown('right') &&
+          !keyIsDown('up') &&
+          !keyIsDown('down')
         ) {
           this.player.stayIdle();
         } else {
-          if (keyIsDown("left")) {
+          if (keyIsDown('left')) {
             this.player.animateRunLeft();
           }
-          if (keyIsDown("right")) {
+          if (keyIsDown('right')) {
             this.player.animateRunRight();
           }
-          if (keyIsDown("up")) {
+          if (keyIsDown('up')) {
             this.player.animateRunUp();
           }
-          if (keyIsDown("down")) {
+          if (keyIsDown('down')) {
             this.player.animateRunDown();
           }
         }
       });
 
-      keyPress("f", () => {
+      keyPress('f', () => {
         fullscreen(!isFullscreen());
       });
 
-      keyPress("space", () => {
+      keyPress('space', () => {
         this.player.pauseFootstepSound();
         this.renderLevel(this.levels[1]);
       });

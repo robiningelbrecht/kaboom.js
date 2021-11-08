@@ -1,8 +1,8 @@
-import { GameBuilder } from "./Game/GameBuilder";
-import { Outdoor } from "./Level/Outdoor";
-import { Indoor } from "./Level/Indoor";
-import { SpriteCollection } from "./Sprite/SpriteCollection";
-import { SoundCollection } from "./Sound/SoundCollection";
+import { GameBuilder } from './Game/GameBuilder';
+import { Outdoor } from './Level/Outdoor';
+import { Indoor } from './Level/Indoor';
+import { SpriteCollection } from './Sprite/SpriteCollection';
+import { SoundCollection } from './Sound/SoundCollection';
 
 const startLevel = new Outdoor();
 const levels = [startLevel, new Indoor()];

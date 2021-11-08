@@ -1,6 +1,6 @@
-import { Vec2 } from "kaboom";
-import { IDLE_ANIMATON } from "../Player/Player";
-import { Layer } from "./Layer";
+import { Vec2 } from 'kaboom';
+import { IDLE_ANIMATON } from '../Player/Player';
+import { Layer } from './Layer';
 
 export abstract class Level {
   public render(): void {

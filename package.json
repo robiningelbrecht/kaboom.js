@@ -1,12 +1,15 @@
 {
   "devDependencies": {
-    "typescript": "^4.4.4",
-    "browserify": "^17.0.0"
+    "@typescript-eslint/eslint-plugin": "^5.3.1",
+    "@typescript-eslint/parser": "^5.3.1",
+    "browserify": "^17.0.0",
+    "eslint": "^8.2.0",
+    "typescript": "^4.4.4"
   },
   "dependencies": {
     "kaboom": "^2000.1.0"
   },
   "scripts": {
-    "build": "node_modules/.bin/tsc && node_modules/.bin/browserify build/index.js -o bundle.js"
-}
+    "build": "node_modules/.bin/eslint src/ --fix && node_modules/.bin/tsc && node_modules/.bin/browserify build/index.js -o bundle.js"
+  }
 }

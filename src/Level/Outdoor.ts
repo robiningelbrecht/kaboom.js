@@ -1,7 +1,7 @@
-import { Vec2 } from "kaboom";
-import { IDLE_ANIMATON } from "../Player/Player";
-import { Layer } from "./Layer";
-import { Level } from "./Level";
+import { Vec2 } from 'kaboom';
+import { IDLE_ANIMATON } from '../Player/Player';
+import { Layer } from './Layer';
+import { Level } from './Level';
 
 export class Outdoor extends Level {
   public getInitialPlayerPosition(): Vec2 {
@@ -16,41 +16,41 @@ export class Outdoor extends Level {
     return [
       new Layer(
         [
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                xx               ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
-          "                                 ",
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                xx               ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
+          '                                 ',
         ],
         {
           width: 64,
           height: 32,
-          " ": () => [sprite("grass_dark")],
-          x: () => [sprite("grass_light")],
+          ' ': () => [sprite('grass_dark')],
+          x: () => [sprite('grass_light')],
         }
       ),
     ];

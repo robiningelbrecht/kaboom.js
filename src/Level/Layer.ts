@@ -1,4 +1,4 @@
-import { LevelOpt } from "kaboom";
+import { LevelOpt } from 'kaboom';
 
 export class Layer {
   private map: Array<string>;

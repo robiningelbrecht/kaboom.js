@@ -5,7 +5,7 @@ exports.Game = exports.SCENE = void 0;
 const kaboom_1 = require("kaboom");
 const AudioPlayer_1 = require("../Sound/AudioPlayer");
 const Player_1 = require("../Player/Player");
-exports.SCENE = "main";
+exports.SCENE = 'main';
 class Game {
     constructor(kaboom, startLevel, levels, sprites, sound) {
         this.kaboom = kaboom;
@@ -26,7 +26,7 @@ class Game {
         this.sound.forEach((sound) => loadSound(sound.getName(), sound.getLocation()));
     }
     render() {
-        const backgroundMusic = new AudioPlayer_1.AudioPlayer(play("background", {
+        const backgroundMusic = new AudioPlayer_1.AudioPlayer(play('background', {
             volume: 0.1,
             loop: true,
         }));
@@ -38,61 +38,61 @@ class Game {
             level.render();
             this.player = new Player_1.Player(add([
                 pos(level.getInitialPlayerPosition()),
-                sprite("player", { anim: level.getInitialPlayerAnimation() }),
+                sprite('player', { anim: level.getInitialPlayerAnimation() }),
                 area(),
                 solid(),
             ]));
             this.player.action();
-            keyDown("right", () => {
+            keyDown('right', () => {
                 this.player.moveRight();
             });
-            keyDown("left", () => {
+            keyDown('left', () => {
                 this.player.moveLeft();
             });
-            keyDown("up", () => {
+            keyDown('up', () => {
                 this.player.moveUp();
             });
-            keyDown("down", () => {
+            keyDown('down', () => {
                 this.player.moveDown();
             });
-            keyPress("right", () => {
+            keyPress('right', () => {
                 this.player.animateRunRight();
             });
-            keyPress("left", () => {
+            keyPress('left', () => {
                 this.player.animateRunLeft();
             });
-            keyPress("up", () => {
+            keyPress('up', () => {
                 this.player.animateRunUp();
             });
-            keyPress("down", () => {
+            keyPress('down', () => {
                 this.player.animateRunDown();
             });
-            keyRelease(["left", "right", "up", "down"], () => {
-                if (!keyIsDown("left") &&
-                    !keyIsDown("right") &&
-                    !keyIsDown("up") &&
-                    !keyIsDown("down")) {
+            keyRelease(['left', 'right', 'up', 'down'], () => {
+                if (!keyIsDown('left') &&
+                    !keyIsDown('right') &&
+                    !keyIsDown('up') &&
+                    !keyIsDown('down')) {
                     this.player.stayIdle();
                 }
                 else {
-                    if (keyIsDown("left")) {
+                    if (keyIsDown('left')) {
                         this.player.animateRunLeft();
                     }
-                    if (keyIsDown("right")) {
+                    if (keyIsDown('right')) {
                         this.player.animateRunRight();
                     }
-                    if (keyIsDown("up")) {
+                    if (keyIsDown('up')) {
                         this.player.animateRunUp();
                     }
-                    if (keyIsDown("down")) {
+                    if (keyIsDown('down')) {
                         this.player.animateRunDown();
                     }
                 }
             });
-            keyPress("f", () => {
+            keyPress('f', () => {
                 fullscreen(!isFullscreen());
             });
-            keyPress("space", () => {
+            keyPress('space', () => {
                 this.player.pauseFootstepSound();
                 this.renderLevel(this.levels[1]);
             });
@@ -143,10 +143,10 @@ class GameBuilder {
     }
     build() {
         if (this.startLevel === null) {
-            throw Error("Cannot build game without start level");
+            throw Error('Cannot build game without start level');
         }
         if (this.levels.length < 1) {
-            throw Error("Cannot build game without levels");
+            throw Error('Cannot build game without levels');
         }
         return new Game_1.Game(this.kaboom, this.startLevel, this.levels, this.sprites, this.sound);
     }
@@ -170,39 +170,39 @@ class Indoor extends Level_1.Level {
     getLayers() {
         return [
             new Layer_1.Layer([
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
             ], {
                 width: 64,
                 height: 32,
-                " ": () => [sprite("grass_light")],
+                ' ': () => [sprite('grass_light')],
             }),
         ];
     }
@@ -255,40 +255,40 @@ class Outdoor extends Level_1.Level {
     getLayers() {
         return [
             new Layer_1.Layer([
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                xx               ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
-                "                                 ",
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                xx               ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
+                '                                 ',
             ], {
                 width: 64,
                 height: 32,
-                " ": () => [sprite("grass_dark")],
-                x: () => [sprite("grass_light")],
+                ' ': () => [sprite('grass_dark')],
+                x: () => [sprite('grass_light')],
             }),
         ];
     }
@@ -320,7 +320,7 @@ class Player {
     constructor(player) {
         this.player = player;
         this.currentDirection = DIRECTION.down;
-        this.footstepSound = new AudioPlayer_1.AudioPlayer(play("footsteps", {
+        this.footstepSound = new AudioPlayer_1.AudioPlayer(play('footsteps', {
             volume: 0.4,
             loop: true,
             speed: 0.8
@@ -339,19 +339,19 @@ class Player {
         this.move(0, SPEED);
     }
     animateRunRight() {
-        this.play("runRight");
+        this.play('runRight');
         this.currentDirection = DIRECTION.right;
     }
     animateRunLeft() {
-        this.play("runLeft");
+        this.play('runLeft');
         this.currentDirection = DIRECTION.left;
     }
     animateRunUp() {
-        this.play("runUp");
+        this.play('runUp');
         this.currentDirection = DIRECTION.up;
     }
     animateRunDown() {
-        this.play("runDown");
+        this.play('runDown');
         this.currentDirection = DIRECTION.down;
     }
     stayIdle() {
@@ -435,8 +435,8 @@ const Sound_1 = require("./Sound");
 class SoundCollection {
     static get() {
         return [
-            new Sound_1.Sound("background", "assets/audio/background.mp3"),
-            new Sound_1.Sound("footsteps", "assets/audio/footsteps.ogg"),
+            new Sound_1.Sound('background', 'assets/audio/background.mp3'),
+            new Sound_1.Sound('footsteps', 'assets/audio/footsteps.ogg'),
         ];
     }
 }
@@ -468,8 +468,8 @@ const Sprite_1 = require("./Sprite");
 class SpriteCollection {
     static get() {
         return [
-            new Sprite_1.Sprite("assets/game-assets/14_human_sprite_base.png", "assets/sprites/player.json"),
-            new Sprite_1.Sprite("assets/game-assets/1_terrain.png", "assets/sprites/terrain.json"),
+            new Sprite_1.Sprite('assets/game-assets/14_human_sprite_base.png', 'assets/sprites/player.json'),
+            new Sprite_1.Sprite('assets/game-assets/1_terrain.png', 'assets/sprites/terrain.json'),
         ];
     }
 }

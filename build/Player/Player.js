@@ -22,7 +22,7 @@ class Player {
     constructor(player) {
         this.player = player;
         this.currentDirection = DIRECTION.down;
-        this.footstepSound = new AudioPlayer_1.AudioPlayer(play("footsteps", {
+        this.footstepSound = new AudioPlayer_1.AudioPlayer(play('footsteps', {
             volume: 0.4,
             loop: true,
             speed: 0.8
@@ -41,19 +41,19 @@ class Player {
         this.move(0, SPEED);
     }
     animateRunRight() {
-        this.play("runRight");
+        this.play('runRight');
         this.currentDirection = DIRECTION.right;
     }
     animateRunLeft() {
-        this.play("runLeft");
+        this.play('runLeft');
         this.currentDirection = DIRECTION.left;
     }
     animateRunUp() {
-        this.play("runUp");
+        this.play('runUp');
         this.currentDirection = DIRECTION.up;
     }
     animateRunDown() {
-        this.play("runDown");
+        this.play('runDown');
         this.currentDirection = DIRECTION.down;
     }
     stayIdle() {

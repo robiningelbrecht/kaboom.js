@@ -1,19 +1,18 @@
-import { AudioPlay } from "kaboom";
-import { AudioPlayer } from "../Sound/AudioPlayer";
+import { AudioPlayer } from '../Sound/AudioPlayer';
 
 enum DIRECTION {
-  left = "Left",
-  right = "Right",
-  up = "Up",
-  down = "Down",
+  left = 'Left',
+  right = 'Right',
+  up = 'Up',
+  down = 'Down',
 }
 
 export enum IDLE_ANIMATON {
-  left = "idleLeft",
-  right = "idleRight",
-  up = "idleUp",
-  down = "idleDown",
-  prefix = "idle"
+  left = 'idleLeft',
+  right = 'idleRight',
+  up = 'idleUp',
+  down = 'idleDown',
+  prefix = 'idle'
 }
 
 const SPEED = 120;
@@ -26,7 +25,7 @@ export class Player {
   constructor(player: any) {
     this.player = player;
     this.currentDirection = DIRECTION.down;
-    this.footstepSound = new AudioPlayer(play("footsteps", {
+    this.footstepSound = new AudioPlayer(play('footsteps', {
       volume: 0.4,
       loop: true,
       speed: 0.8
@@ -50,22 +49,22 @@ export class Player {
   }
 
   public animateRunRight(): void {
-    this.play("runRight");
+    this.play('runRight');
     this.currentDirection = DIRECTION.right;
   }
 
   public animateRunLeft(): void {
-    this.play("runLeft");
+    this.play('runLeft');
     this.currentDirection = DIRECTION.left;
   }
 
   public animateRunUp(): void {
-    this.play("runUp");
+    this.play('runUp');
     this.currentDirection = DIRECTION.up;
   }
 
   public animateRunDown(): void {
-    this.play("runDown");
+    this.play('runDown');
     this.currentDirection = DIRECTION.down;
   }
 

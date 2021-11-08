@@ -1,4 +1,4 @@
-import { AudioPlay } from "kaboom";
+import { AudioPlay } from 'kaboom';
 
 export const AUDIO_ENABLED = false;
 
@@ -25,6 +25,6 @@ export class AudioPlayer {
   }
 
   public isPaused(): boolean{
-      return this.audioPlay.isPaused();
+    return this.audioPlay.isPaused();
   }
 }
