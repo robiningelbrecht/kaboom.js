@@ -1,7 +1,7 @@
-import { Vec2 } from 'kaboom';
 import { IDLE_ANIMATON } from '../Player/Player';
 import { Layer } from './Layer';
 import { Level } from './Level';
+import { Vec2 } from 'kaboom';
 
 export class Indoor extends Level {
   public getInitialPlayerPosition(): Vec2 {

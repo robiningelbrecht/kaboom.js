@@ -1,9 +1,8 @@
 import { Game } from './Game';
-import { Sprite } from '../Sprite/Sprite';
+import { KaboomOpt } from 'kaboom';
 import { Level } from '../Level/Level';
 import { Sound } from '../Sound/Sound';
-import { KaboomOpt } from 'kaboom';
-
+import { Sprite } from '../Sprite/Sprite';
 export class GameBuilder {
   private kaboom: KaboomOpt;
   private startLevel: Level | null;

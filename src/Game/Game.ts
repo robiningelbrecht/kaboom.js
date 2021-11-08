@@ -1,8 +1,8 @@
 import kaboom, { KaboomOpt } from 'kaboom';
-import { Level } from '../Level/Level';
 import { AudioPlayer } from '../Sound/AudioPlayer';
-import { Sound } from '../Sound/Sound';
+import { Level } from '../Level/Level';
 import { Player } from '../Player/Player';
+import { Sound } from '../Sound/Sound';
 import { Sprite } from '../Sprite/Sprite';
 
 export const SCENE = 'main';
