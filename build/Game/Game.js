@@ -2,39 +2,36 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Game = exports.SCENE = void 0;
 const kaboom_1 = require("kaboom");
-const AudioPlayer_1 = require("../Sound/AudioPlayer");
 const Player_1 = require("../Player/Player");
 exports.SCENE = 'main';
 class Game {
-    constructor(kaboom, startLevel, levels, sprites, sound) {
+    constructor(kaboom, startLevel, levels, sprites, audioColletion) {
         this.kaboom = kaboom;
         this.startLevel = startLevel;
         this.levels = levels;
         this.sprites = sprites;
-        this.sound = sound;
+        this.audioColletion = audioColletion;
     }
     initialize() {
         (0, kaboom_1.default)(this.kaboom);
         this.loadSprites();
-        this.loadSound();
+        this.loadAudio();
     }
     loadSprites() {
         this.sprites.forEach((sprite) => loadSpriteAtlas(sprite.getImgSource(), sprite.getJsonDefinition()));
     }
-    loadSound() {
-        this.sound.forEach((sound) => loadSound(sound.getName(), sound.getLocation()));
+    loadAudio() {
+        for (const audioFile of this.audioColletion.all()) {
+            audioFile.load();
+        }
     }
     render() {
-        const backgroundMusic = new AudioPlayer_1.AudioPlayer(play('background', {
-            volume: 0.1,
-            loop: true,
-        }));
-        backgroundMusic.play();
         this.renderLevel(this.startLevel);
     }
     renderLevel(level) {
         scene(exports.SCENE, () => {
             level.render();
+            const footstepsAudio = this.audioColletion.get('footsteps');
             this.player = new Player_1.Player(add([
                 pos(level.getInitialPlayerPosition()),
                 sprite('player', { anim: level.getInitialPlayerAnimation() }),
@@ -43,15 +40,19 @@ class Game {
             ]));
             this.player.action();
             keyDown('right', () => {
+                footstepsAudio.play();
                 this.player.moveRight();
             });
             keyDown('left', () => {
+                footstepsAudio.play();
                 this.player.moveLeft();
             });
             keyDown('up', () => {
+                footstepsAudio.play();
                 this.player.moveUp();
             });
             keyDown('down', () => {
+                footstepsAudio.play();
                 this.player.moveDown();
             });
             keyPress('right', () => {
@@ -71,6 +72,7 @@ class Game {
                     !keyIsDown('right') &&
                     !keyIsDown('up') &&
                     !keyIsDown('down')) {
+                    footstepsAudio.stop();
                     this.player.stayIdle();
                 }
                 else {
@@ -92,7 +94,7 @@ class Game {
                 fullscreen(!isFullscreen());
             });
             keyPress('space', () => {
-                this.player.pauseFootstepSound();
+                footstepsAudio.stop();
                 this.renderLevel(this.levels[1]);
             });
         });

@@ -1,8 +1,7 @@
 import kaboom, { KaboomOpt } from 'kaboom';
-import { AudioPlayer } from '../Sound/AudioPlayer';
+import { AudioCollection } from '../Audio/AudioCollection';
 import { Level } from '../Level/Level';
 import { Player } from '../Player/Player';
-import { Sound } from '../Sound/Sound';
 import { Sprite } from '../Sprite/Sprite';
 
 export const SCENE = 'main';
@@ -13,27 +12,27 @@ export class Game {
   private levels: Array<Level>;
   private sprites: Array<Sprite>;
   private player!: Player;
-  private sound: Array<Sound>;
+  private audioColletion: AudioCollection;
 
   constructor(
     kaboom: KaboomOpt,
     startLevel: Level,
     levels: Array<Level>,
     sprites: Array<Sprite>,
-    sound: Array<Sound>
+    audioColletion: AudioCollection
   ) {
     this.kaboom = kaboom;
     this.startLevel = startLevel;
     this.levels = levels;
     this.sprites = sprites;
-    this.sound = sound;
+    this.audioColletion = audioColletion;
   }
 
   public initialize(): void {
     kaboom(this.kaboom);
 
     this.loadSprites();
-    this.loadSound();
+    this.loadAudio();
   }
 
   private loadSprites(): void {
@@ -42,18 +41,14 @@ export class Game {
     );
   }
 
-  private loadSound(): void {
-    this.sound.forEach((sound: Sound) =>
-      loadSound(sound.getName(), sound.getLocation())
-    );
+  private loadAudio(): void {
+    for (const audioFile of this.audioColletion.all()) {
+      audioFile.load();
+    }
   }
 
   public render(): void {
-    const backgroundMusic = new AudioPlayer(play('background', {
-      volume: 0.1,
-      loop: true,
-    }));
-    backgroundMusic.play();
+    //this.audioColletion.get('background').play();
   
     this.renderLevel(this.startLevel);
   }
@@ -62,6 +57,7 @@ export class Game {
     scene(SCENE, () => {
       level.render();
 
+      const footstepsAudio = this.audioColletion.get('footsteps');
       this.player = new Player(
         add([
           pos(level.getInitialPlayerPosition()),
@@ -73,18 +69,22 @@ export class Game {
       this.player.action();
 
       keyDown('right', () => {
+        footstepsAudio.play();
         this.player.moveRight();
       });
 
       keyDown('left', () => {
+        footstepsAudio.play();
         this.player.moveLeft();
       });
 
       keyDown('up', () => {
+        footstepsAudio.play();
         this.player.moveUp();
       });
 
       keyDown('down', () => {
+        footstepsAudio.play();
         this.player.moveDown();
       });
 
@@ -111,6 +111,7 @@ export class Game {
           !keyIsDown('up') &&
           !keyIsDown('down')
         ) {
+          footstepsAudio.stop();
           this.player.stayIdle();
         } else {
           if (keyIsDown('left')) {
@@ -133,7 +134,7 @@ export class Game {
       });
 
       keyPress('space', () => {
-        this.player.pauseFootstepSound();
+        footstepsAudio.stop();
         this.renderLevel(this.levels[1]);
       });
     });

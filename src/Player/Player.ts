@@ -1,5 +1,3 @@
-import { AudioPlayer } from '../Sound/AudioPlayer';
-
 enum DIRECTION {
   left = 'Left',
   right = 'Right',
@@ -20,16 +18,10 @@ const SPEED = 120;
 export class Player {
   private player: any;
   private currentDirection: DIRECTION;
-  private footstepSound: AudioPlayer;
 
   constructor(player: any) {
     this.player = player;
     this.currentDirection = DIRECTION.down;
-    this.footstepSound = new AudioPlayer(play('footsteps', {
-      volume: 0.4,
-      loop: true,
-      speed: 0.8
-    }));
   }
 
   public moveRight(): void {
@@ -69,18 +61,7 @@ export class Player {
   }
 
   public stayIdle(): void {
-    this.pauseFootstepSound();
     this.play(IDLE_ANIMATON.prefix + this.currentDirection);
-  }
-
-  public pauseFootstepSound(): void{
-    this.footstepSound.pause();
-  }
-
-  public playFootstepSound(): void{
-    if(this.footstepSound.isPaused()){
-      this.footstepSound.play();
-    }
   }
 
   private play(animation: string): void {
@@ -88,7 +69,6 @@ export class Player {
   }
 
   private move(direction: number, speed: number): void {
-    this.playFootstepSound();
     this.player.move(direction, speed);
   }
 

@@ -11,7 +11,6 @@ class GameBuilder {
         this.startLevel = null;
         this.levels = [];
         this.sprites = [];
-        this.sound = [];
     }
     static fromDefaults() {
         return new GameBuilder();
@@ -32,8 +31,8 @@ class GameBuilder {
         this.sprites = sprites;
         return this;
     }
-    withSound(sound) {
-        this.sound = sound;
+    withAudioCollection(audioCollection) {
+        this.audioCollection = audioCollection;
         return this;
     }
     build() {
@@ -43,7 +42,7 @@ class GameBuilder {
         if (this.levels.length < 1) {
             throw Error('Cannot build game without levels');
         }
-        return new Game_1.Game(this.kaboom, this.startLevel, this.levels, this.sprites, this.sound);
+        return new Game_1.Game(this.kaboom, this.startLevel, this.levels, this.sprites, this.audioCollection);
     }
 }
 exports.GameBuilder = GameBuilder;

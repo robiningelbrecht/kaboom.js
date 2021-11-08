@@ -1,7 +1,7 @@
+import { AudioCollection } from './Audio/AudioCollection';
 import { GameBuilder } from './Game/GameBuilder';
 import { Indoor } from './Level/Indoor';
 import { Outdoor } from './Level/Outdoor';
-import { SoundCollection } from './Sound/SoundCollection';
 import { SpriteCollection } from './Sprite/SpriteCollection';
 
 const startLevel = new Outdoor();
@@ -14,7 +14,7 @@ const game = GameBuilder.fromDefaults()
   .withLevels(levels)
   .withStartLevel(startLevel)
   .withSprites(SpriteCollection.get())
-  .withSound(SoundCollection.get())
+  .withAudioCollection(new AudioCollection())
   .build();
 
 game.initialize();
