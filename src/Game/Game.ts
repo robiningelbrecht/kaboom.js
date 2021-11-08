@@ -1,5 +1,6 @@
 import kaboom, { KaboomOpt } from "kaboom";
 import { Level } from "../Level/Level";
+import { AudioPlayer } from "../Sound/AudioPlayer";
 import { Sound } from "../Sound/Sound";
 import { Player } from "../Player/Player";
 import { Sprite } from "../Sprite/Sprite";
@@ -48,10 +49,12 @@ export class Game {
   }
 
   public render(): void {
-    play("background", {
+    const backgroundMusic = new AudioPlayer(play("background", {
       volume: 0.1,
       loop: true,
-    });
+    }));
+    backgroundMusic.play();
+  
     this.renderLevel(this.startLevel);
   }
 

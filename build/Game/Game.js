@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Game = exports.SCENE = void 0;
 const kaboom_1 = require("kaboom");
+const AudioPlayer_1 = require("../Sound/AudioPlayer");
 const Player_1 = require("../Player/Player");
 exports.SCENE = "main";
 class Game {
@@ -24,10 +25,11 @@ class Game {
         this.sound.forEach((sound) => loadSound(sound.getName(), sound.getLocation()));
     }
     render() {
-        play("background", {
+        const backgroundMusic = new AudioPlayer_1.AudioPlayer(play("background", {
             volume: 0.1,
             loop: true,
-        });
+        }));
+        backgroundMusic.play();
         this.renderLevel(this.startLevel);
     }
     renderLevel(level) {

@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Player = exports.IDLE_ANIMATON = void 0;
+const AudioPlayer_1 = require("../Sound/AudioPlayer");
 var DIRECTION;
 (function (DIRECTION) {
     DIRECTION["left"] = "Left";
@@ -21,12 +22,11 @@ class Player {
     constructor(player) {
         this.player = player;
         this.currentDirection = DIRECTION.down;
-        this.footsteps = play("footsteps", {
+        this.footstepSound = new AudioPlayer_1.AudioPlayer(play("footsteps", {
             volume: 0.4,
             loop: true,
             speed: 0.8
-        });
-        this.footsteps.pause();
+        }));
     }
     moveRight() {
         this.move(SPEED, 0);
@@ -61,11 +61,11 @@ class Player {
         this.play(IDLE_ANIMATON.prefix + this.currentDirection);
     }
     pauseFootstepSound() {
-        this.footsteps.pause();
+        this.footstepSound.pause();
     }
     playFootstepSound() {
-        if (this.footsteps.isPaused()) {
-            this.footsteps.play();
+        if (this.footstepSound.isPaused()) {
+            this.footstepSound.play();
         }
     }
     play(animation) {
