@@ -1,14 +1,56 @@
 {
-  "grass_light": {
-    "x": 16,
-    "y": 320,
-    "width": 64,
-    "height": 32
+  "grass_border_left":{
+    "x": 32,
+    "y": 32,
+    "width": 16,
+    "height": 16
   },
-  "grass_dark": {
+  "grass_border_right":{
+    "x": 0,
+    "y": 32,
+    "width": 16,
+    "height": 16
+  },
+  "grass_border_top":{
+    "x": 48,
+    "y": 32,
+    "width": 16,
+    "height": 16
+  },
+  "grass_border_bottom":{
     "x": 16,
     "y": 32,
-    "width": 64,
-    "height": 32
+    "width": 16,
+    "height": 16
+  },
+  "grass_border_top_left":{
+    "x": 64,
+    "y": 64,
+    "width": 16,
+    "height": 16
+  },
+  "grass_border_top_right":{
+    "x": 80,
+    "y": 64,
+    "width": 16,
+    "height": 16
+  },
+  "grass_border_bottom_left":{
+    "x": 48,
+    "y": 64,
+    "width": 16,
+    "height": 16
+  },
+  "grass_border_bottom_right":{
+    "x": 32,
+    "y": 64,
+    "width": 16,
+    "height": 16
+  },
+  "grass":{
+    "x": 0,
+    "y": 0,
+    "width": 16,
+    "height": 16
   }
 }

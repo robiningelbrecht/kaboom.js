@@ -5,7 +5,7 @@ export class SpriteCollection {
     return [
       // Player sprite.
       new Sprite(
-        'assets/game-assets/14_human_sprite_base.png',
+        'assets/game-assets/2_human_sprite_base.png',
         'assets/sprites/player.json'
       ),
       // Terrain sprite.
