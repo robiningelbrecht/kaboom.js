@@ -5,6 +5,11 @@ export class Sprite {
   constructor(imgSource: string, jsonDefinition: string) {
     this.imgSource = imgSource;
     this.jsonDefintion = jsonDefinition;
+    this.load();
+  }
+
+  private async load(): Promise<void>{
+    await loadSpriteAtlas(this.getImgSource(), this.getJsonDefinition());
   }
 
   public getImgSource(): string {

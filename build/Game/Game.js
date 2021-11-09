@@ -1,31 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Game = exports.SCENE = void 0;
-const kaboom_1 = require("kaboom");
 const Player_1 = require("../Player/Player");
 exports.SCENE = 'main';
 class Game {
-    constructor(kaboom, startLevel, levels, sprites, audioColletion) {
-        this.kaboom = kaboom;
+    constructor(startLevel, levels, audioColletion) {
         this.startLevel = startLevel;
         this.levels = levels;
-        this.sprites = sprites;
         this.audioColletion = audioColletion;
     }
-    initialize() {
-        (0, kaboom_1.default)(this.kaboom);
-        this.loadSprites();
-        this.loadAudio();
-    }
-    loadSprites() {
-        this.sprites.forEach((sprite) => loadSpriteAtlas(sprite.getImgSource(), sprite.getJsonDefinition()));
-    }
-    loadAudio() {
-        for (const audioFile of this.audioColletion.all()) {
-            audioFile.load();
-        }
-    }
     render() {
+        this.audioColletion.get('background').play();
         this.renderLevel(this.startLevel);
     }
     renderLevel(level) {
@@ -38,7 +23,6 @@ class Game {
                 area(),
                 solid(),
             ]));
-            this.player.action();
             keyDown('right', () => {
                 footstepsAudio.play();
                 this.player.moveRight();

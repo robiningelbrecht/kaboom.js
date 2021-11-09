@@ -1,7 +1,7 @@
 import { Sprite } from './Sprite';
 
 export class SpriteCollection {
-  public static get(): Array<Sprite> {
+  public static load(): Array<Sprite> {
     return [
       // Player sprite.
       new Sprite(

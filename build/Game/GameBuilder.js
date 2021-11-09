@@ -4,20 +4,11 @@ exports.GameBuilder = void 0;
 const Game_1 = require("./Game");
 class GameBuilder {
     constructor() {
-        this.kaboom = {
-            scale: 1,
-            background: [0, 0, 0],
-        };
         this.startLevel = null;
         this.levels = [];
-        this.sprites = [];
     }
     static fromDefaults() {
         return new GameBuilder();
-    }
-    withKaboom(kaboomOpt) {
-        this.kaboom = kaboomOpt;
-        return this;
     }
     withLevels(levels) {
         this.levels = levels;
@@ -25,10 +16,6 @@ class GameBuilder {
     }
     withStartLevel(level) {
         this.startLevel = level;
-        return this;
-    }
-    withSprites(sprites) {
-        this.sprites = sprites;
         return this;
     }
     withAudioCollection(audioCollection) {
@@ -42,7 +29,7 @@ class GameBuilder {
         if (this.levels.length < 1) {
             throw Error('Cannot build game without levels');
         }
-        return new Game_1.Game(this.kaboom, this.startLevel, this.levels, this.sprites, this.audioCollection);
+        return new Game_1.Game(this.startLevel, this.levels, this.audioCollection);
     }
 }
 exports.GameBuilder = GameBuilder;

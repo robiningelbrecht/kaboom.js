@@ -20,6 +20,7 @@ const SPEED = 120;
 class Player {
     constructor(player) {
         this.player = player;
+        this.action();
         this.currentDirection = DIRECTION.down;
     }
     moveRight() {

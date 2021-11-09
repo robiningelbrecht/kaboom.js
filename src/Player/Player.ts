@@ -21,6 +21,7 @@ export class Player {
 
   constructor(player: any) {
     this.player = player;
+    this.action();
     this.currentDirection = DIRECTION.down;
   }
 
@@ -72,7 +73,7 @@ export class Player {
     this.player.move(direction, speed);
   }
 
-  public action() {
+  private action() {
     this.player.action(() => {
       camPos(this.player.pos);
     });
