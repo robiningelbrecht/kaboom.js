@@ -9,7 +9,9 @@ const kaboom_1 = require("kaboom");
 (0, kaboom_1.default)({
     scale: 1.5,
     background: [0, 0, 0],
+    debug: true
 });
+debug.inspect = false;
 SpriteCollection_1.SpriteCollection.load();
 const startLevel = new Outdoor_1.Outdoor();
 const levels = [startLevel, new Indoor_1.Indoor()];

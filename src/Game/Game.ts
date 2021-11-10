@@ -22,6 +22,13 @@ export class Game {
 
   public render(): void {
     this.audioColletion.get('background').play();
+
+    layers([
+      'game',
+      'ui',
+      'player'
+    ], 'game');
+
     this.renderLevel(this.startLevel);
   }
 
@@ -32,10 +39,11 @@ export class Game {
       const footstepsAudio = this.audioColletion.get('footsteps');
       this.player = new Player(
         add([
-          pos(level.getInitialPlayerPosition()),
+          pos(level.getMap().getPos(level.getInitialPlayerPosition())),
           sprite('player', { anim: level.getInitialPlayerAnimation() }),
-          area(),
+          area({ height: 24, offset: vec2(0, 34) }),
           solid(),
+          layer('player')
         ])
       );
 

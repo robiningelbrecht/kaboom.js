@@ -11,6 +11,11 @@ class Game {
     }
     render() {
         this.audioColletion.get('background').play();
+        layers([
+            'game',
+            'ui',
+            'player'
+        ], 'game');
         this.renderLevel(this.startLevel);
     }
     renderLevel(level) {
@@ -18,10 +23,11 @@ class Game {
             level.render();
             const footstepsAudio = this.audioColletion.get('footsteps');
             this.player = new Player_1.Player(add([
-                pos(level.getInitialPlayerPosition()),
+                pos(level.getMap().getPos(level.getInitialPlayerPosition())),
                 sprite('player', { anim: level.getInitialPlayerAnimation() }),
-                area(),
+                area({ height: 24, offset: vec2(0, 34) }),
                 solid(),
+                layer('player')
             ]));
             keyDown('right', () => {
                 footstepsAudio.play();

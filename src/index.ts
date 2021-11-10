@@ -5,11 +5,13 @@ import { Outdoor } from './Level/Outdoor';
 import { SpriteCollection } from './Sprite/SpriteCollection';
 import kaboom from 'kaboom';
 
-// Initialize kabboom.
+// Initialize kaboom.
 kaboom({
   scale: 1.5,
   background: [0, 0, 0],
+  debug: true
 });
+debug.inspect = false;
 
 // Load sprites.
 SpriteCollection.load();

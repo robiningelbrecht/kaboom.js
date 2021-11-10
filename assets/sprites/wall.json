@@ -1,0 +1,26 @@
+{
+  "wall_one":{
+    "x": 32,
+    "y": 32,
+    "width": 16,
+    "height": 16
+  },
+  "wall_two":{
+    "x": 0,
+    "y": 32,
+    "width": 16,
+    "height": 16
+  },
+  "Wall_three":{
+    "x": 48,
+    "y": 32,
+    "width": 16,
+    "height": 16
+  },
+  "wall_right_border":{
+    "x": 16,
+    "y": 32,
+    "width": 16,
+    "height": 16
+  }
+}

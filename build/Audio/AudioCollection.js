@@ -25,7 +25,7 @@ class AudioCollection {
                 return audioFile;
             }
         }
-        throw Error('Invalid audio file name ' + name);
+        throw debug.error('Invalid audio file name ' + name);
     }
 }
 exports.AudioCollection = AudioCollection;

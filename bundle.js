@@ -26,7 +26,7 @@ class AudioCollection {
                 return audioFile;
             }
         }
-        throw Error('Invalid audio file name ' + name);
+        throw debug.error('Invalid audio file name ' + name);
     }
 }
 exports.AudioCollection = AudioCollection;
@@ -120,6 +120,11 @@ class Game {
     }
     render() {
         this.audioColletion.get('background').play();
+        layers([
+            'game',
+            'ui',
+            'player'
+        ], 'game');
         this.renderLevel(this.startLevel);
     }
     renderLevel(level) {
@@ -127,10 +132,11 @@ class Game {
             level.render();
             const footstepsAudio = this.audioColletion.get('footsteps');
             this.player = new Player_1.Player(add([
-                pos(level.getInitialPlayerPosition()),
+                pos(level.getMap().getPos(level.getInitialPlayerPosition())),
                 sprite('player', { anim: level.getInitialPlayerAnimation() }),
-                area(),
+                area({ height: 24, offset: vec2(0, 34) }),
                 solid(),
+                layer('player')
             ]));
             keyDown('right', () => {
                 footstepsAudio.play();
@@ -223,10 +229,10 @@ class GameBuilder {
     }
     build() {
         if (this.startLevel === null) {
-            throw Error('Cannot build game without start level');
+            throw debug.error('Cannot build game without start level');
         }
         if (this.levels.length < 1) {
-            throw Error('Cannot build game without levels');
+            throw debug.error('Cannot build game without levels');
         }
         return new Game_1.Game(this.startLevel, this.levels, this.audioCollection);
     }
@@ -242,49 +248,50 @@ const Layer_1 = require("./Layer");
 const Level_1 = require("./Level");
 class Indoor extends Level_1.Level {
     getInitialPlayerPosition() {
-        return vec2(100, 100);
+        return vec2(0, 0);
     }
     getInitialPlayerAnimation() {
         return Player_1.IDLE_ANIMATON.up;
     }
+    getBaseLayer() {
+        return new Layer_1.Layer([
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+        ], {
+            width: 64,
+            height: 32,
+            ' ': () => [sprite('grass_light')],
+        });
+    }
     getLayers() {
-        return [
-            new Layer_1.Layer([
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-            ], {
-                width: 64,
-                height: 32,
-                ' ': () => [sprite('grass_light')],
-            }),
-        ];
+        return [];
     }
 }
 exports.Indoor = Indoor;
@@ -313,7 +320,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Level = void 0;
 class Level {
     render() {
-        this.getLayers().forEach((layer) => addLevel(layer.getMap(), layer.getOptions()));
+        this.baseLayer = addLevel(this.getBaseLayer().getMap(), Object.assign(Object.assign({}, this.getBaseLayer().getOptions()), { pos: this.calculateLayerPosition() }));
+        this.getLayers().forEach((layer) => addLevel(layer.getMap(), Object.assign(Object.assign({}, layer.getOptions()), { pos: this.calculateLayerPosition() })));
+    }
+    getMap() {
+        return this.baseLayer;
+    }
+    calculateLayerPosition() {
+        const numberOfTilesX = this.getBaseLayer().getMap()[0].length;
+        const widthOfTile = this.getBaseLayer().getOptions().width;
+        const numberOfTilesY = this.getBaseLayer().getMap().length;
+        const heightOfTile = this.getBaseLayer().getOptions().width;
+        return vec2((width() - (numberOfTilesX * widthOfTile)) / 2, (height() - (numberOfTilesY * heightOfTile)) / 2);
     }
 }
 exports.Level = Level;
@@ -327,32 +345,37 @@ const Layer_1 = require("./Layer");
 const Level_1 = require("./Level");
 class Outdoor extends Level_1.Level {
     getInitialPlayerPosition() {
-        return vec2(100, 100);
+        return vec2(10, 2);
     }
     getInitialPlayerAnimation() {
         return Player_1.IDLE_ANIMATON.down;
     }
+    getBaseLayer() {
+        return new Layer_1.Layer([
+            'atttttttttttttttttttb',
+            'l                   r',
+            'l                   r',
+            'l                   r',
+            'l                   r',
+            'l                   r',
+            'l                   r',
+            'ceeeeeeeeeeeeeeeeeeed',
+        ], {
+            width: 16,
+            height: 16,
+            ' ': () => [sprite('grass')],
+            'a': () => [sprite('grass_border_top_left'), solid(), area({ width: 1, height: 1 })],
+            'b': () => [sprite('grass_border_top_right'), solid(), area({ width: 1, height: 1, offset: vec2(15, 0) })],
+            'c': () => [sprite('grass_border_bottom_left'), solid(), area({ width: 1, height: 1, offset: vec2(0, 15) })],
+            'd': () => [sprite('grass_border_bottom_right'), solid(), area({ width: 1, height: 1, offset: vec2(15, 15) })],
+            'l': () => [sprite('grass_border_left'), solid(), area({ width: 1 })],
+            'r': () => [sprite('grass_border_right'), solid(), area({ width: 1, offset: vec2(15, 0) })],
+            't': () => [sprite('grass_border_top'), solid(), area({ height: 1 })],
+            'e': () => [sprite('grass_border_bottom'), solid(), area({ height: 1, offset: vec2(0, 15) })],
+        });
+    }
     getLayers() {
-        return [
-            new Layer_1.Layer([
-                'attttb',
-                'l    r',
-                'l    r',
-                'ceeeed',
-            ], {
-                width: 16,
-                height: 16,
-                ' ': () => [sprite('grass')],
-                'a': () => [sprite('grass_border_top_left'), solid(), area()],
-                'b': () => [sprite('grass_border_top_right'), solid(), area()],
-                'c': () => [sprite('grass_border_bottom_left'), solid(), area()],
-                'd': () => [sprite('grass_border_bottom_right'), solid(), area()],
-                'l': () => [sprite('grass_border_left'), solid(), area({ width: 1 })],
-                'r': () => [sprite('grass_border_right'), solid(), area({ width: 1, offset: vec2(15, 0) })],
-                't': () => [sprite('grass_border_top'), solid(), area()],
-                'e': () => [sprite('grass_border_bottom'), solid(), area()],
-            }),
-        ];
+        return [];
     }
 }
 exports.Outdoor = Outdoor;
@@ -421,8 +444,7 @@ class Player {
         this.player.move(direction, speed);
     }
     action() {
-        this.player.action(() => {
-            camPos(this.player.pos);
+        this.player.onUpdate(() => {
         });
     }
 }
@@ -470,7 +492,7 @@ class SpriteCollection {
     static load() {
         return [
             new Sprite_1.Sprite('assets/game-assets/2_human_sprite_base.png', 'assets/sprites/player.json'),
-            new Sprite_1.Sprite('assets/game-assets/1_terrain.png', 'assets/sprites/terrain.json'),
+            new Sprite_1.Sprite('assets/game-assets/1_terrain.png', 'assets/sprites/grass.json'),
         ];
     }
 }
@@ -488,7 +510,9 @@ const kaboom_1 = require("kaboom");
 (0, kaboom_1.default)({
     scale: 1.5,
     background: [0, 0, 0],
+    debug: true
 });
+debug.inspect = false;
 SpriteCollection_1.SpriteCollection.load();
 const startLevel = new Outdoor_1.Outdoor();
 const levels = [startLevel, new Indoor_1.Indoor()];

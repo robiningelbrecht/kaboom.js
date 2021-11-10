@@ -6,49 +6,50 @@ const Layer_1 = require("./Layer");
 const Level_1 = require("./Level");
 class Indoor extends Level_1.Level {
     getInitialPlayerPosition() {
-        return vec2(100, 100);
+        return vec2(0, 0);
     }
     getInitialPlayerAnimation() {
         return Player_1.IDLE_ANIMATON.up;
     }
+    getBaseLayer() {
+        return new Layer_1.Layer([
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+            '                                 ',
+        ], {
+            width: 64,
+            height: 32,
+            ' ': () => [sprite('grass_light')],
+        });
+    }
     getLayers() {
-        return [
-            new Layer_1.Layer([
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-                '                                 ',
-            ], {
-                width: 64,
-                height: 32,
-                ' ': () => [sprite('grass_light')],
-            }),
-        ];
+        return [];
     }
 }
 exports.Indoor = Indoor;

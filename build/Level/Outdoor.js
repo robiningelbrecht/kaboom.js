@@ -6,32 +6,37 @@ const Layer_1 = require("./Layer");
 const Level_1 = require("./Level");
 class Outdoor extends Level_1.Level {
     getInitialPlayerPosition() {
-        return vec2(100, 100);
+        return vec2(10, 2);
     }
     getInitialPlayerAnimation() {
         return Player_1.IDLE_ANIMATON.down;
     }
+    getBaseLayer() {
+        return new Layer_1.Layer([
+            'atttttttttttttttttttb',
+            'l                   r',
+            'l                   r',
+            'l                   r',
+            'l                   r',
+            'l                   r',
+            'l                   r',
+            'ceeeeeeeeeeeeeeeeeeed',
+        ], {
+            width: 16,
+            height: 16,
+            ' ': () => [sprite('grass')],
+            'a': () => [sprite('grass_border_top_left'), solid(), area({ width: 1, height: 1 })],
+            'b': () => [sprite('grass_border_top_right'), solid(), area({ width: 1, height: 1, offset: vec2(15, 0) })],
+            'c': () => [sprite('grass_border_bottom_left'), solid(), area({ width: 1, height: 1, offset: vec2(0, 15) })],
+            'd': () => [sprite('grass_border_bottom_right'), solid(), area({ width: 1, height: 1, offset: vec2(15, 15) })],
+            'l': () => [sprite('grass_border_left'), solid(), area({ width: 1 })],
+            'r': () => [sprite('grass_border_right'), solid(), area({ width: 1, offset: vec2(15, 0) })],
+            't': () => [sprite('grass_border_top'), solid(), area({ height: 1 })],
+            'e': () => [sprite('grass_border_bottom'), solid(), area({ height: 1, offset: vec2(0, 15) })],
+        });
+    }
     getLayers() {
-        return [
-            new Layer_1.Layer([
-                'attttb',
-                'l    r',
-                'l    r',
-                'ceeeed',
-            ], {
-                width: 16,
-                height: 16,
-                ' ': () => [sprite('grass')],
-                'a': () => [sprite('grass_border_top_left'), solid(), area()],
-                'b': () => [sprite('grass_border_top_right'), solid(), area()],
-                'c': () => [sprite('grass_border_bottom_left'), solid(), area()],
-                'd': () => [sprite('grass_border_bottom_right'), solid(), area()],
-                'l': () => [sprite('grass_border_left'), solid(), area({ width: 1 })],
-                'r': () => [sprite('grass_border_right'), solid(), area({ width: 1, offset: vec2(15, 0) })],
-                't': () => [sprite('grass_border_top'), solid(), area()],
-                'e': () => [sprite('grass_border_bottom'), solid(), area()],
-            }),
-        ];
+        return [];
     }
 }
 exports.Outdoor = Outdoor;

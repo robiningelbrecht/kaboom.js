@@ -74,8 +74,9 @@ export class Player {
   }
 
   private action() {
-    this.player.action(() => {
-      camPos(this.player.pos);
+    this.player.onUpdate(() => {
+      // Set the viewport center to player.pos
+      // camPos(this.player.pos);
     });
   }
 }

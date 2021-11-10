@@ -36,6 +36,6 @@ export class AudioCollection{
       }
     }
 
-    throw Error('Invalid audio file name ' + name);
+    throw debug.error('Invalid audio file name ' + name);
   }
 }

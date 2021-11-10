@@ -61,8 +61,7 @@ class Player {
         this.player.move(direction, speed);
     }
     action() {
-        this.player.action(() => {
-            camPos(this.player.pos);
+        this.player.onUpdate(() => {
         });
     }
 }
