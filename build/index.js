@@ -8,8 +8,9 @@ const SpriteCollection_1 = require("./Sprite/SpriteCollection");
 const kaboom_1 = require("kaboom");
 (0, kaboom_1.default)({
     scale: 1.5,
-    background: [0, 0, 0],
-    debug: true
+    background: [42, 38, 52],
+    debug: true,
+    crisp: true
 });
 debug.inspect = false;
 SpriteCollection_1.SpriteCollection.load();

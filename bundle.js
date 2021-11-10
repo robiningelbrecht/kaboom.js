@@ -311,6 +311,10 @@ class Layer {
     getOptions() {
         return this.layerOpt;
     }
+    hasEqualSize(layer) {
+        return this.getMap().length === layer.getMap().length
+            && this.getMap()[0].length === layer.getMap()[0].length;
+    }
 }
 exports.Layer = Layer;
 
@@ -320,6 +324,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Level = void 0;
 class Level {
     render() {
+        for (const layer of this.getLayers()) {
+            if (!layer.hasEqualSize(this.getBaseLayer())) {
+                debug.error('All layers must have the same map size as the base layer');
+            }
+        }
         this.baseLayer = addLevel(this.getBaseLayer().getMap(), Object.assign(Object.assign({}, this.getBaseLayer().getOptions()), { pos: this.calculateLayerPosition() }));
         this.getLayers().forEach((layer) => addLevel(layer.getMap(), Object.assign(Object.assign({}, layer.getOptions()), { pos: this.calculateLayerPosition() })));
     }
@@ -345,25 +354,29 @@ const Layer_1 = require("./Layer");
 const Level_1 = require("./Level");
 class Outdoor extends Level_1.Level {
     getInitialPlayerPosition() {
-        return vec2(10, 2);
+        return vec2(0, 0);
     }
     getInitialPlayerAnimation() {
         return Player_1.IDLE_ANIMATON.down;
     }
     getBaseLayer() {
         return new Layer_1.Layer([
-            'atttttttttttttttttttb',
-            'l                   r',
-            'l                   r',
-            'l                   r',
-            'l                   r',
-            'l                   r',
-            'l                   r',
-            'ceeeeeeeeeeeeeeeeeeed',
+            'l----------------------------------------r',
+            'l----------------------------------------r',
+            'ceeeeeeeeeeeeeeeeeeeeb-------------------r',
+            '123232323232323232323l-------------------r',
+            '567676767676767676767l-------------------r',
+            '(:/:/:/:/:/:/:/:/:/:/l-------------------r',
+            '                     l-------------------r',
+            '                     l-------------------r',
+            '                     ceeeeeeeeeeeeeeeeeeed',
+            '                     123232323232323232324',
+            '                     567676767676767676768',
+            '                     (:/:/:/:/:/:/:/:/:/:)',
         ], {
             width: 16,
             height: 16,
-            ' ': () => [sprite('grass')],
+            '-': () => [sprite('grass')],
             'a': () => [sprite('grass_border_top_left'), solid(), area({ width: 1, height: 1 })],
             'b': () => [sprite('grass_border_top_right'), solid(), area({ width: 1, height: 1, offset: vec2(15, 0) })],
             'c': () => [sprite('grass_border_bottom_left'), solid(), area({ width: 1, height: 1, offset: vec2(0, 15) })],
@@ -372,6 +385,18 @@ class Outdoor extends Level_1.Level {
             'r': () => [sprite('grass_border_right'), solid(), area({ width: 1, offset: vec2(15, 0) })],
             't': () => [sprite('grass_border_top'), solid(), area({ height: 1 })],
             'e': () => [sprite('grass_border_bottom'), solid(), area({ height: 1, offset: vec2(0, 15) })],
+            '1': () => [sprite('wall_variation1', { frame: 0 })],
+            '2': () => [sprite('wall_variation1', { frame: 1 })],
+            '3': () => [sprite('wall_variation1', { frame: 2 })],
+            '4': () => [sprite('wall_variation1', { frame: 3 })],
+            '5': () => [sprite('wall_variation1', { frame: 4 })],
+            '6': () => [sprite('wall_variation1', { frame: 5 })],
+            '7': () => [sprite('wall_variation1', { frame: 6 })],
+            '8': () => [sprite('wall_variation1', { frame: 7 })],
+            '(': () => [sprite('wall_variation1', { frame: 8 })],
+            ':': () => [sprite('wall_variation1', { frame: 9 })],
+            '/': () => [sprite('wall_variation1', { frame: 10 })],
+            ')': () => [sprite('wall_variation1', { frame: 11 })],
         });
     }
     getLayers() {
@@ -493,6 +518,7 @@ class SpriteCollection {
         return [
             new Sprite_1.Sprite('assets/game-assets/2_human_sprite_base.png', 'assets/sprites/player.json'),
             new Sprite_1.Sprite('assets/game-assets/1_terrain.png', 'assets/sprites/grass.json'),
+            new Sprite_1.Sprite('assets/game-assets/1_terrain.png', 'assets/sprites/wall.json'),
         ];
     }
 }
@@ -509,8 +535,9 @@ const SpriteCollection_1 = require("./Sprite/SpriteCollection");
 const kaboom_1 = require("kaboom");
 (0, kaboom_1.default)({
     scale: 1.5,
-    background: [0, 0, 0],
-    debug: true
+    background: [42, 38, 52],
+    debug: true,
+    crisp: true
 });
 debug.inspect = false;
 SpriteCollection_1.SpriteCollection.load();

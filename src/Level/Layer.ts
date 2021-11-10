@@ -9,11 +9,16 @@ export class Layer {
     this.layerOpt = layerOpt;
   }
 
-  getMap(): string[] {
+  public getMap(): string[] {
     return this.map;
   }
 
-  getOptions(): LevelOpt {
+  public getOptions(): LevelOpt {
     return this.layerOpt;
+  }
+
+  public hasEqualSize(layer: Layer): boolean {
+    return this.getMap().length === layer.getMap().length
+    && this.getMap()[0].length === layer.getMap()[0].length;
   }
 }

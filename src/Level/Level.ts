@@ -6,6 +6,13 @@ export abstract class Level {
   private baseLayer!: KaboomLevel;
 
   public render(): void {
+    // Validate that all layers have the same map size as base layer.
+    for (const layer of this.getLayers()) {
+      if(!layer.hasEqualSize(this.getBaseLayer())){
+        debug.error('All layers must have the same map size as the base layer');
+      }
+    }
+
     this.baseLayer = addLevel(
       this.getBaseLayer().getMap(), 
       {...this.getBaseLayer().getOptions(), pos: this.calculateLayerPosition()}

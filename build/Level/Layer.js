@@ -12,6 +12,10 @@ class Layer {
     getOptions() {
         return this.layerOpt;
     }
+    hasEqualSize(layer) {
+        return this.getMap().length === layer.getMap().length
+            && this.getMap()[0].length === layer.getMap()[0].length;
+    }
 }
 exports.Layer = Layer;
 //# sourceMappingURL=Layer.js.map

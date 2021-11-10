@@ -13,6 +13,11 @@ export class SpriteCollection {
         'assets/game-assets/1_terrain.png',
         'assets/sprites/grass.json'
       ),
+      // Wall sprite.
+      new Sprite(
+        'assets/game-assets/1_terrain.png',
+        'assets/sprites/wall.json'
+      ),
     ];
   }
 }

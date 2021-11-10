@@ -3,6 +3,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Level = void 0;
 class Level {
     render() {
+        for (const layer of this.getLayers()) {
+            if (!layer.hasEqualSize(this.getBaseLayer())) {
+                debug.error('All layers must have the same map size as the base layer');
+            }
+        }
         this.baseLayer = addLevel(this.getBaseLayer().getMap(), Object.assign(Object.assign({}, this.getBaseLayer().getOptions()), { pos: this.calculateLayerPosition() }));
         this.getLayers().forEach((layer) => addLevel(layer.getMap(), Object.assign(Object.assign({}, layer.getOptions()), { pos: this.calculateLayerPosition() })));
     }
